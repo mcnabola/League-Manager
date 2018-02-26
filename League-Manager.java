@@ -14,7 +14,6 @@ public class League-Manager
 	 /*   Function that checks the strength of the users password that they enter and returns a boolean based on whether it is strong enough to be used.
 	  *   Inputs - Password user entered as a String.
 	  *   Output - Boolean True/False based on the passwords strength.
-	  *   Author - Mark McNabola 17226163
 	  */
 	 public static boolean passwordStrength(String password)
 	 {
