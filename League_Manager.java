@@ -34,12 +34,7 @@ public class League_Manager
 		 for (int i =0 ; i< pLength;i++)
 		 {
 			 char x = password.charAt(i);
-			 
-			 // ascii 48 57 is numbers
-			 // 65 90 cap
-			 // 97 121 lowercase
-			 // else is a ascii other symbol
-			 
+			 //  [ ascii ] [ 48 57 Numbers ], [ 65 90 Capitals ] [ 97 121 Lowercase ] [ Anything else - symbol ]
 			 if ( x >= 48 && x <= 57)
 			 {
 				 numbers++;
@@ -56,7 +51,6 @@ public class League_Manager
 			 {
 				 symbol++;
 			 }
-			 
 			 if (numbers >= 1 && pLength >=8 && symbol >= 1 && capitalLetters >= 1 )
 			 {
 				 // password is valid
@@ -87,8 +81,8 @@ public class League_Manager
 	 */	
 	public static int optionBoxs(String[] options)
 	{
-		int result = JOptionPane.showOptionDialog(null, "Returns pos of choice in array", "Click button", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-	    return result;
+        int result = JOptionPane.showOptionDialog(null, "Returns pos of choice in array", "Click button", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        return result;
 	}
 	
 	/**
@@ -107,12 +101,12 @@ public class League_Manager
  	 */   // concern >> ? Does this overwrite data in the txtfile or append it to the end of the file
 	 public static void writeFile(String input, String fileName) 
 	 {
-		 try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
          new FileOutputStream(filename), "utf-8"))) 
 		 {
              writer.write(input);
          }
-		 catch(Exception e)
+         catch(Exception e)
          {} 
          
 	 }
