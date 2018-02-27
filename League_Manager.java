@@ -1,17 +1,24 @@
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import javax.swing.JOptionPane;
-
-public class League-Manager
+import java.util.Arrays;
+public class League_Manager
 {
     public static void main(String[] args)
     {
-	    // first thing as the program starts is to log in
+	    // first thing as the program starts is to log in, ask user do they have an account or do they want to sign in?
+		
 		
 		// have to check is the username valid
 		// is the password valid
 		// does it already exist
 
     }
-	 /*   Function that checks the strength of the users password that they enter and returns a boolean based on whether it is strong enough to be used.
+	 /**   Function that checks the strength of the users password that they enter and returns a boolean based on whether it is strong enough to be used.
 	  *   Inputs - Password user entered as a String.
 	  *   Output - Boolean True/False based on the passwords strength.
 	  */
@@ -94,7 +101,63 @@ public class League-Manager
 	     JOptionPane.showMessageDialog(null, output);	
 	}
 	
-	
+	/**
+	 * Input - filename to push text to and the actual text you want put in the file.
+	 * Output - 
+ 	 */   // concern >> ? Does this overwrite data in the txtfile or append it to the end of the file
+	 public static void writeFile(String input, String fileName) 
+	 {
+		 try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+         new FileOutputStream(filename), "utf-8"))) 
+		 {
+             writer.write(input);
+         }
+		 catch(Exception e)
+         {} 
+         
+	 }
+	 
+	 /*
+	  * Input - filename in string format
+	  * Output - ?? Arraylist or a array of the string 
+	  */
+	 public static String readFile(String filename)  
+	 {
+		 String line = "";
+		 
+		 try
+		 {
+			
+	        BufferedReader in = new BufferedReader(new FileReader(filename));
+			while ((line = in.readLine()) != null)
+			{    
+		        String[] split = line.split(",");
+				System.out.println(Arrays.toString(split));
+			}
+			/*
+			 One method to find things as described below
+			
+			 One method to return the whole text file as a string or an array
+			*/
+			
+			
+			/*
+			//  Enter filename to search  admin.txt scores.txt
+			
+			    Enter thing to find - string == yes
+				                      int    == 1  
+									  
+				Enter position in the text file to search for said item
+				   Format:   1,admin,password
+							 want to look for admin - enter 1
+							 want to look for the unique identifier no. enter 0
+			*/
+		 }
+		 catch (Exception e)
+		 {}
+		 
+		 return line;
+	 } 
 
 }
 
