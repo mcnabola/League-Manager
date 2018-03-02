@@ -117,7 +117,7 @@ public class League_Manager
 		 public static void fileWriter(String filename, String output);
 		 try
 		 {
-		     FileWriter aFileWriter = new FileWriter(filename,true);
+		     FileWriter aFileWriter = new FileWriter(filename,true)
              PrintWriter out = new PrintWriter(aFileWriter);
 			 out.print("\n"); // everything that u input to the file is on a newline
 			 out.print(output);
