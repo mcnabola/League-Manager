@@ -1,72 +1,87 @@
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import javax.swing.JOptionPane;
-import java.util.Arrays;
+import java.io.*;
+import javax.swing.*;
+import java.util.*;
 public class League_Manager
 {
     public static void main(String[] args)
     {
-	    // first thing as the program starts is to log in, ask user do they have an account or do they want to sign in?
+        String initialOptions= " 1-create league \n 2-Edit/view League \n 3-Remove League \n 4-Exit Application ";
+		String subOptions=" 1-Fixture Generation \n 2-View Table 3-Input results \n 4-Add/remove teams \n 5-number of leagues made";
+		String subOptionsOfSubOptions=" 1-Add teams 2-remove teams";
 		
 		
-		// have to check is the username valid
-		// is the password valid
-		// does it already exist
-
+	
+		//if (logIn("Enter your username and password"))=true; // thomas method
+		//{
+			int x=menuBoxInt(initialOptions);
+			if (x== 1)
+			{
+				createNewLeague();
+			}
+			if (x==2)
+			{
+				int y=menuBoxInt(subOptions);
+				if (y==1)
+				{
+					String r=menuBox("genfix");
+					generateFixtures(r);
+				}
+				if (y==2)
+				{
+					String v=menuBox("gentable");
+					generateTable(v);
+				}
+				if (y==3)
+				{
+					String r=menuBox("displayTable");
+					displayTable(r);
+				}
+				if (y==4)
+				{
+					int z=menuBoxInt(subOptionsOfSubOptions);
+					if (z==1)
+					{
+					 String r=menuBox("addTeamsToLeague");
+					 addTeamsToLeague(r);	
+					}
+					if (z==2)
+					{
+						String r=menuBox("addTeamsToLeague");
+						removeTeamsFromLeague(r);
+					}
+				}
+				if (y==5)
+				{
+					getNumberOfLeaguesMade();
+				}
+			}
+			
+			if (x==3)
+			{
+				String r=menuBox("addTeamsToLeague");
+				removeLeague(r);
+			}
+			if (x==4)
+			{
+				System.exit(0);
+			}
+			
+				else 
+				{
+					outputBoxs("Number outside 1-5");
+				}
+		}
+			
+			
+		//}  end thomas' method call
     }
-	 /**   Function that checks the strength of the users password that they enter and returns a boolean based on whether it is strong enough to be used.
-	  *   Inputs - Password user entered as a String.
-	  *   Output - Boolean True/False based on the passwords strength.
-	  */
-	 public static boolean passwordStrength(String password)
-	 {
-		 // check is there minimum 8 chars, 1 Uppercase, 1 Number, 1 Symbol
-
-		 boolean verified = false;
-		 int pLength = password.length();
-		 int numbers = 0;
-		 int capitalLetters = 0;
-		 int symbol = 0;
-		 for (int i =0 ; i< pLength;i++)
-		 {
-			 char x = password.charAt(i);
-			 //  [ ascii ] [ 48 57 Numbers ], [ 65 90 Capitals ] [ 97 121 Lowercase ] [ Anything else - symbol ]
-			 if ( x >= 48 && x <= 57)
-			 {
-				 numbers++;
-			 }
-			 else if (x >= 65 && x <= 90)
-			 {
-				 capitalLetters++;
-			 }
-			 else if (x >= 97 && x <= 121)
-			 {
-				 // normol lowercase letter
-			 }
-			 else
-			 {
-				 symbol++;
-			 }
-			 if (numbers >= 1 && pLength >=8 && symbol >= 1 && capitalLetters >= 1 )
-			 {
-				 // password is valid
-				 verified = true;
-				 break;
-			 }
-		 }
-		 return verified;
-	 }
 	 
 	/**
 	 * GUI Method User enters a string with user suggested values that the user chooses what option they desire by entering the number they desire 
 	 * Input - String options = "1) Option1 \n2) Option2  \n3) Option3"; in that format
 	 * Returns a int output
 	 */
-	public static int menuBox(String options)
+	public static int menuBox(String options)  //== method name
 	{
 		String text = JOptionPane.showInputDialog(null, options);
 		// parse to int and return the users choice
@@ -98,18 +113,21 @@ public class League_Manager
 	/**
 	 * Input - filename to push text to and the actual text you want put in the file.
 	 * Output - 
- 	 */   // concern >> ? Does this overwrite data in the txtfile or append it to the end of the file
-	 public static void writeFile(String input, String fileName) 
-	 {
-         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-         new FileOutputStream(fileName), "utf-8"))) 
+ 	 */     // does this create a new file if it doesnt exist yet?
+		 public static void fileWriter(String filename, String output);
+		 try
 		 {
-             writer.write(input);
-         }
-         catch(Exception e)
-         {} 
-         
-	 }
+		     FileWriter aFileWriter = new FileWriter(filename,true);
+             PrintWriter out = new PrintWriter(aFileWriter);
+			 out.print("\n"); // everything that u input to the file is on a newline
+			 out.print(output);
+			 //out.print("\n" + output);; /havent checked yet
+			 out.close();
+			 aFileWriter.close();
+        			
+		 }
+		 catch(Exception e)
+		 {}
 	 
 	 /*
 	  * Input - filename in string format
