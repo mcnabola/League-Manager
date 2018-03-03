@@ -1,94 +1,38 @@
 import java.io.*;
 import javax.swing.*;
 import java.util.*;
-public class League_Manager
+public class League_Manager 
 {
-    public static void main(String[] args)
-    {
-        String initialOptions= " 1-create league \n 2-Edit/view League \n 3-Remove League \n 4-Exit Application ";
-		String subOptions=" 1-Fixture Generation \n 2-View Table 3-Input results \n 4-Add/remove teams \n 5-number of leagues made";
-		String subOptionsOfSubOptions=" 1-Add teams 2-remove teams";
-		
-		
-	
-		//if (logIn("Enter your username and password"))=true; // thomas method
-		//{
-			int x=menuBoxInt(initialOptions);
-			if (x== 1)
-			{
-				createNewLeague();
-			}
-			if (x==2)
-			{
-				int y=menuBoxInt(subOptions);
-				if (y==1)
-				{
-					String r=menuBox("genfix");
-					generateFixtures(r);
-				}
-				if (y==2)
-				{
-					String v=menuBox("gentable");
-					generateTable(v);
-				}
-				if (y==3)
-				{
-					String r=menuBox("displayTable");
-					displayTable(r);
-				}
-				if (y==4)
-				{
-					int z=menuBoxInt(subOptionsOfSubOptions);
-					if (z==1)
-					{
-					 String r=menuBox("addTeamsToLeague");
-					 addTeamsToLeague(r);	
-					}
-					if (z==2)
-					{
-						String r=menuBox("addTeamsToLeague");
-						removeTeamsFromLeague(r);
-					}
-				}
-				if (y==5)
-				{
-					getNumberOfLeaguesMade();
-				}
-			}
-			
-			if (x==3)
-			{
-				String r=menuBox("addTeamsToLeague");
-				removeLeague(r);
-			}
-			if (x==4)
-			{
-				System.exit(0);
-			}
-			
-				else 
-				{
-					outputBoxs("Number outside 1-5");
-				}
-		}
-			
-			
-		//}  end thomas' method call
-    }
+    
+	 private static int currentAdminNo=1;
+	 private static int leagueNo=1;
+	 final static String leagueFile="league.txt";
+	 final static String adminFile="administrator.txt";
+     
+	 public static void main(String[] args)
+	 {	
+	     String initialOptions= " 1-create league \n 2-Edit/view League \n 3-Remove League \n 4-Exit Application ";
+		 String subOptions=" 1-Fixture Generation \n 2-View Table 3-Input results \n 4-Add/remove teams \n 5-number of leagues made";
+		 String subOptionsOfSubOptions=" 1-Add teams 2-remove teams";
+	     // have these as arrays give a nicer finish? - use optionboxs method
+         // include pauls code for main method here
+		 
+		 
+	 }
+     
 	 
-	/**
-	 * GUI Method User enters a string with user suggested values that the user chooses what option they desire by entering the number they desire 
-	 * Input - String options = "1) Option1 \n2) Option2  \n3) Option3"; in that format
-	 * Returns a int output
+	 // START OF GUI METHODS
+	 
+    /**
+	 * GUI Method for displaying a message output
+	 * Input - Any string input 
+	 * Output - No output from the method - The String is converted to a GUI output box.
 	 */
-	public static int menuBox(String options)  //== method name
+	public static void outputBoxs(String output) // be aware many other methods are calling outputBoxs - want just "outputBox"
 	{
-		String text = JOptionPane.showInputDialog(null, options);
-		// parse to int and return the users choice
-		int x = Integer.parseInt(text);
-		return x;
+	     JOptionPane.showMessageDialog(null, output);	
 	}
-
+	 
 	/**
 	 * GUI Method that returns the position of the option that the user choose from an array of inputs. 
 	 * Input - Array String of options that the user wants displayed on the buttons, e.g input: String[] opt = {"opt1", "opt2", "opt3"};
@@ -99,125 +43,176 @@ public class League_Manager
         int result = JOptionPane.showOptionDialog(null, "Returns pos of choice in array", "Click button", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         return result;
 	}
-	
-	/**
-	 * GUI Method for displaying a message output
-	 * Input - String input of 
-	 * Output - No output from the method - The String is converted to a GUI output box.
-	 */
-	public static void outputBoxs(String output)
-	{
-	     JOptionPane.showMessageDialog(null, output);	
-	}
-	
-	/**
-	 * Input - filename to push text to and the actual text you want put in the file.
-	 * Output - 
- 	 */     // does this create a new file if it doesnt exist yet?
-		 public static void fileWriter(String filename, String output);
-		 try
-		 {
-		     FileWriter aFileWriter = new FileWriter(filename,true)
-             PrintWriter out = new PrintWriter(aFileWriter);
-			 out.print("\n"); // everything that u input to the file is on a newline
-			 out.print(output);
-			 //out.print("\n" + output);; /havent checked yet
-			 out.close();
-			 aFileWriter.close();
-        			
-		 }
-		 catch(Exception e)
-		 {}
 	 
-	 /*
-	  * Input - filename in string format
-	  * Output - ?? Arraylist or a array of the string 
-	  */
-	 public static String readFile(String filename)  
-	 {
-		 String line = "";
-		 
-		 try
-		 {
-			
-	        BufferedReader in = new BufferedReader(new FileReader(filename));
-			while ((line = in.readLine()) != null)
-			{    
-		        String[] split = line.split(",");
-				System.out.println(Arrays.toString(split));
-			}
-			/*
-			 One method to find things as described below
-			
-			 One method to return the whole text file as a string or an array
-			*/
-			
-			
-			/*
-			//  Enter filename to search  admin.txt scores.txt
-			
-			    Enter thing to find - string == yes
-				                      int    == 1  
-									  
-				Enter position in the text file to search for said item
-				   Format:   1,admin,password
-							 want to look for admin - enter 1
-							 want to look for the unique identifier no. enter 0
-			*/
-		 }
-		 catch (Exception e)
-		 {}
-		 
-		 return line;
-	 } 
-}
-	
-/* seans code so far
-import java.io.*;
-import javax.swing.*;
-import java.util.*;
 
-public class League
-{
-	private static int currentAdminNo=1;
-	private static int leagueNo=1;
-	final static String leagueFile="league.txt";
-	final static String adminFile="administrator.txt";
-	
-	public static void main(String [] args)
+	public static String menuBox(String options)  //== method name
 	{
-	createNewLeague();
-    addTeamsToLeague();
+		String text = JOptionPane.showInputDialog(null, options);
+		return text;
 	}
-	
-		 
-	public static void writeFile(String input, String fileName) 
-	 {
-         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-         new FileOutputStream(fileName), "utf-8"))) 
-		 {
-             writer.write(input);
-         }
-         catch(Exception e)
-         {} 
-         
-	 }
-	 
-	 public static String menuBox(String Options)
-	 {
-		 String input="";
-		 input=JOptionPane.showInputDialog(null,Options);
-		 return input;
-	 }
-	 
-	 public static int menuBoxInt(String options)
+
+    /**
+	 * GUI Method User enters a string with user suggested values that the user chooses what option they desire by entering the number they desire 
+	 * Input - String options = "1) Option1 \n2) Option2  \n3) Option3"; in that format
+	 * Returns a int output
+	 */	
+	public static int menuBoxInt(String options)
 	{
 		String text = JOptionPane.showInputDialog(null, options);
 		int x = Integer.parseInt(text);
 		return x;
+		
+		/// include pauls validation
 	}
 	
-	public static void createNewLeague()
+	// READING AND WRITING METHODS
+		/**
+	 * Input - filename to push text to and the actual text you want put in the file.
+	 * Output - 
+ 	 */     // this method both appends to already created files and if a file doesnt exist it creates it and adds to it
+     public static void fileWriter(String filename, String output)
+	 {
+     try
+     {
+	     FileWriter aFileWriter = new FileWriter(filename,true);
+         PrintWriter out = new PrintWriter(aFileWriter);			 
+	     out.print("\n" + output); 
+	     out.close();
+		 aFileWriter.close();
+     }
+	 catch(Exception e)
+	 {}
+	 }
+	 
+	 // sean's readfile  - was readFile -- changed to readFile1 in the method commented below too
+	 	public static String readFile1(String textFile)
+	{
+		String fileText="";
+		try
+		{
+		    FileReader reader=new FileReader(textFile);
+		    Scanner in=new Scanner(reader);
+		    while(in.hasNext())
+		    {
+			    fileText=in.nextLine();
+			    fileText=fileText+",";
+		    }
+		    in.close();
+		    reader.close();
+		}
+		catch(Exception E)
+		{}
+	    return fileText;
+	}
+	
+		 /*
+	  * Input - String textFile -- name of the textFile to search
+                String searchedItem -- what string value are we looking for in the text file
+                int itemPositionNo -- what position in the line format is this "searchedItem" located
+                int returnedItemNo -- if the "searchedItem" is found in the "itemPositionNo" in the file format return a string array of everything in the location "returnedItemNo"				
+	  
+	  File Format  -- leagueID,LeagueName,adminID
+	  1,Premiership,1     
+	  2,SnookerLeage,1
+	  
+	  // if you wanted to check for all adminID value 1 in the position 3 -- then if true return all the leagues name in position 1 
+	  
+	  * Output -    // also anyone wanting to use this ask me to explain it
+	  */
+	 public static String[] readFile(String textFile, String searchedItem, int itemPositionNo, int returnedItemNo)  
+	 {
+		 String x="";
+		 try
+		 {
+	        FileReader reader=new FileReader(textFile);
+			Scanner in=new Scanner(reader);
+			while(in.hasNext())
+			{    
+		        String fileText= in.nextLine();
+		        String[] split = fileText.split(","); 
+				if (split[itemPositionNo].equals(searchedItem))
+				{
+					// if true store the item in position returnedItemNo
+					x += split[returnedItemNo]+",";
+					
+				}
+				
+			}
+			in.close();
+			reader.close();		
+            
+		 }
+		 catch (Exception e)
+		 {}
+		 String[] returned = x.split(",");
+		 return returned;
+    } 
+	
+	
+		/**
+     * Input -- textFile -- name of the file to search 
+	            searchedItem -- what is the string you want to search for e.g look for a username enter "john.brown" 
+                itemPositionNo -- what position is the "searchedItem" stored in				
+	 *
+	 */
+	public static Boolean readFile(String textFile, String searchedItem, int itemPositionNo)
+    {
+		boolean found = false;
+		try
+		 {
+			
+	        FileReader reader=new FileReader(textFile);
+			Scanner in=new Scanner(reader);
+			while(in.hasNext())
+			{    
+		        String fileText=in.nextLine();
+		        String[] split = fileText.split(",");
+				if (split[itemPositionNo].equals(searchedItem))
+				{
+					found = true;
+					break;
+				}
+				
+			}
+			in.close();
+			reader.close();	
+		 }
+		 catch (Exception e)
+		 {}
+		
+		return found;
+	}	
+	
+	
+	
+	/*
+    ///////  work in progress still ? i think
+	public static void addTeamsToLeague()
+	{
+		String info=""; String teamName=""; String teamFileInfo=""; String teamFileName="";
+		int whichLeague=menuBoxInt("Enter which league number to add teams/players to:"); // users dont know what number their leagues are!!!!!!
+		teamFileName=whichLeague+"_"+"participants.txt";
+		if(getNumberOfLeaguesMade()<whichLeague) // getnumber - ie 5 leagues made - but whichLeague is 10
+		{
+			outputBoxs("This league does not exist.");
+		}
+		else
+		{
+			int numberOfTeams=menuBoxInt("Enter the amount of teams/players:");
+			for(int i=0;i<numberOfTeams;i++)
+			{
+				info="enter team/player number:"+(i+1);
+				teamName=menuBox(info);
+				teamFileInfo=(i+1)+","+teamName;
+				writeFile(teamFileInfo,teamFileName); // writeFile or fileWriter !!
+			}
+		}
+	*/
+
+	//=========
+	
+    /*
+     	public static void createNewLeague()  // need to call the new writefall method
 	{
 		String leagueName=""; String leagueFileInput="";
 		leagueName=menuBox("Enter your league name:");
@@ -225,15 +220,20 @@ public class League
 		writeFile(leagueFileInput,leagueFile);
 	    leagueNo++;
 	}
+    */ 	
 	
-	public static int getNumberOfLeaguesMade()
+	//======
+	
+	/*
+	// is this giving a list of leagues he has or just counting the amount he made
+	public static int getNumberOfLeaguesMade()  // can the new readFile method be used? 
 	{
 		boolean sameAdmin=true;
 		boolean found=false;
-		int currentAdminPostion=0;
+		int currentAdminPostion=0; 
 		int temp=0;
 		int numberOfLeagues=0;
-		String [] arrayOfDetails=readFile(leagueFile).split(",");
+		String [] arrayOfDetails=readFile1(leagueFile).split(",");
 		for (int i=0;i<arrayOfDetails.length&&found==false;i=i+3)
 		{
 			temp=Integer.parseInt(arrayOfDetails[i]);
@@ -255,39 +255,20 @@ public class League
 			}
 		}
 		return numberOfLeagues;
-	}
+	} */
 	
-	public static String readFile(String textFile)
-	{
-		String fileText="";
-		try
-		{
-		FileReader reader=new FileReader(textFile);
-		Scanner in=new Scanner(reader);
-		while(in.hasNext())
-		{
-			fileText=in.nextLine();
-			fileText=fileText+",";
-		}
-		in.close();
-		reader.close();
-		}
-		catch(Exception E)
-		{}
-		return fileText;
-	}
-	
-	public static void outputBoxs(String output)
-	{
-	     JOptionPane.showMessageDialog(null, output);	
-	}
-	
+	 ///===========
+	 
+	 
+	 /*
+	 
+	 	 ///////  work in progress still ? i think
 	public static void addTeamsToLeague()
 	{
 		String info=""; String teamName=""; String teamFileInfo=""; String teamFileName="";
-		int whichLeague=menuBoxInt("Enter which league number to add teams/players to:");
+		int whichLeague=menuBoxInt("Enter which league number to add teams/players to:"); // users dont know what number their leagues are!!!!!!
 		teamFileName=whichLeague+"_"+"participants.txt";
-		if(getNumberOfLeaguesMade()<whichLeague)
+		if(getNumberOfLeaguesMade()<whichLeague) // getnumber - ie 5 leagues made - but whichLeague is 10
 		{
 			outputBoxs("This league does not exist.");
 		}
@@ -299,111 +280,15 @@ public class League
 				info="enter team/player number:"+(i+1);
 				teamName=menuBox(info);
 				teamFileInfo=(i+1)+","+teamName;
-				writeFile(teamFileInfo,teamFileName);
+				writeFile(teamFileInfo,teamFileName); // writeFile or fileWriter !!
 			}
 		}
-	}
-
-}
-*/
-// Paul's code so far.Got the gui roughlygoing.Only made up mock versions of methods to make sure it works.
-	/*import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import javax.swing.JOptionPane;
-import java.util.Arrays;
-import java.util.*;
-public class gui
-{
-	public static void main(String[]args)
-	{   
-        String initialOptions= " 1-create league \n 2-Edit/view League \n 3-Remove League \n 4-Exit Application ";
-		String subOptions=" 1-Fixture Generation \n 2-View Table 3-Input results \n 4-Add/remove teams \n 5-number of leagues made";
-		String subOptionsOfSubOptions=" 1-Add teams 2-remove teams";
-		
-		
-	
-		//if (logIn("Enter your username and password"))=true; // thomas method
-		//{
-			int x=menuBoxInt(initialOptions);
-			if (x== 1)
-			{
-				createNewLeague();
-			}
-			if (x==2)
-			{
-				int y=menuBoxInt(subOptions);
-				if (y==1)
-				{
-					String r=menuBox("genfix");
-					generateFixtures(r);
-				}
-				if (y==2)
-				{
-					String v=menuBox("gentable");
-					generateTable(v);
-				}
-				if (y==3)
-				{
-					String r=menuBox("displayTable");
-					displayTable(r);
-				}
-				if (y==4)
-				{
-					int z=menuBoxInt(subOptionsOfSubOptions);
-					if (z==1)
-					{
-					 String r=menuBox("addTeamsToLeague");
-					 addTeamsToLeague(r);	
-					}
-					if (z==2)
-					{
-						String r=menuBox("addTeamsToLeague");
-						removeTeamsFromLeague(r);
-					}
-				}
-				if (y==5)
-				{
-					getNumberOfLeaguesMade();
-				}
-			}
-			
-			if (x==3)
-			{
-				String r=menuBox("addTeamsToLeague");
-				removeLeague(r);
-			}
-			if (x==4)
-			{
-				System.exit(0);
-			}
-			
-				else 
-				{
-					outputBoxs("Number outside 1-5");
-				}
-		}
-			
-			
-		//}
-	
-	
-	public static int menuBoxInt(String options)
-	{   int x=-1;
-		String text = JOptionPane.showInputDialog(null, options);
-		boolean valid = validateNumberInput(text); 
-		if (valid=true)
-		{
-		// parse to int and return the users choice
-		 x = Integer.parseInt(text);
-		}
-		return x;
-	}
-	
-	public static boolean validateNumberInput(String text)
+     }
+	 
+	 */
+	     /// includde this in all the gui methods
+		 /// is there a else in reply to the first if
+	 	public static boolean validateNumberInput(String text)
 	{
 		String result="";
 		String pattern="[1-4]{1}";
@@ -433,7 +318,7 @@ public class gui
 		return verified ;
 	}
 	
-				
+	// include in gui method
 	public static boolean validateInput(String text)
 	{
 		String result="";
@@ -463,161 +348,20 @@ public class gui
 		}
 		return verified ;
 	}
-        private static int currentAdminNo=1;
-		private static int leagueNo=1;
-		final static String leagueFile="league.txt";
-		final static String adminFile="administrator.txt";
 	
-	public static void createNewLeague()
-	{
-		String leagueName=""; String leagueFileInput="";
-		leagueName=menuBox("Enter your league name:");
-		leagueFileInput=currentAdminNo+","+leagueName+","+leagueNo;
-		writeFile(leagueFileInput,leagueFile);
-		leagueNo++;
-				}
 	
-		 
-	public static void writeFile(String input, String fileName) 
-	 {
-         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-         new FileOutputStream(fileName), "utf-8"))) 
-		 {
-             writer.write(input);
-         }
-         catch(Exception e)
-         {} 
-         
-	 }
-	 
-	 public static String menuBox(String Options)
-	 {
-		 String input="";
-		 input=JOptionPane.showInputDialog(null,Options);
-		 return input;
-	 }
+	
+	
+	
+	
 	 
 	
 	
 	
-	public static int getNumberOfLeaguesMade()
-	{
-		boolean sameAdmin=true;
-		boolean found=false;
-		int currentAdminPostion=0;
-		int temp=0;
-		int numberOfLeagues=0;
-		String [] arrayOfDetails=readFile(leagueFile).split(",");
-		for (int i=0;i<arrayOfDetails.length&&found==false;i=i+3)
-		{
-			temp=Integer.parseInt(arrayOfDetails[i]);
-			if(temp==currentAdminNo)
-			{
-				found=true;
-				currentAdminPostion=i;
-			}
-		}
-		for(int i=currentAdminPostion;i<arrayOfDetails.length && sameAdmin==true;i=i+3)
-		{
-			if(currentAdminNo!=Integer.parseInt(arrayOfDetails[i]))
-			{
-				sameAdmin=false;
-			}
-			else
-			{
-				numberOfLeagues=Integer.parseInt(arrayOfDetails[i+2]);
-			}
-		}
-		return numberOfLeagues;
-	}
-	
-	public static String readFile(String textFile)
-	{
-		String fileText="";
-		try
-		{
-		FileReader reader=new FileReader(textFile);
-		Scanner in=new Scanner(reader);
-		while(in.hasNext())
-		{
-			fileText=in.nextLine();
-			fileText=fileText+",";
-		}
-		in.close();
-		reader.close();
-		}
-		catch(Exception E)
-		{}
-		return fileText;
-	}
-	
-	public static void outputBoxs(String output)
-	{
-	     JOptionPane.showMessageDialog(null, output);	
-	}
-	
-	public static void addTeamsToLeague()
-	{
-		String info=""; String teamName=""; String teamFileInfo=""; String teamFileName="";
-		int whichLeague=menuBoxInt("Enter which league number to add teams/players to:");
-		teamFileName=whichLeague+"_"+"participants.txt";
-		if(getNumberOfLeaguesMade()<whichLeague)
-		{
-			outputBoxs("This league does not exist.");
-		}
-		else
-		{
-			int numberOfTeams=menuBoxInt("Enter the amount of teams/players:");
-			for(int i=0;i<numberOfTeams;i++)
-			{
-				info="enter team/player number:"+(i+1);
-				teamName=menuBox(info);
-				teamFileInfo=(i+1)+","+teamName;
-				writeFile(teamFileInfo,teamFileName);	
-        }
 
-		}
-	}
-	public static String createNewLeague(String x)
-	{
-		outputBoxs(x);
-		return x;
-	}
 	
-	public static String generateFixtures(String x)
-	{
-		outputBoxs(x);
-		return x;
-	}
-	public static String generateTable(String x)
-	{
-		outputBoxs(x);
-		return x;
-	}
-	public static String removeTeamsFromLeague(String x)
-	{
-		outputBoxs(x);
-		return x;
-	}
-	public static String removeLeague(String x)
-	{
-		outputBoxs(x);
-		return x;
-	}
-	public static String addTeamsToLeague(String x)
-	{
-		outputBoxs(x);
-		return x;
-	}
-	public static String displayTable(String x)
-	{
-		outputBoxs(x);
-		return x;
-	}
+
 }
-*/
-}
-	
 
 
 
