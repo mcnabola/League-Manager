@@ -70,7 +70,7 @@ public class League_Manager
 	 * Input - filename to push text to and the actual text you want put in the file.
 	 * Output - 
  	 */     // this method both appends to already created files and if a file doesnt exist it creates it and adds to it
-     public static void fileWriter(String filename, String output)
+     public static void writeFile(String filename, String output)   /// fileWriter   or   writeFile   -- what has sean already started with
 	 {
      try
      {
@@ -186,13 +186,13 @@ public class League_Manager
 	
 	
 	/*
-    ///////  work in progress still ? i think
+    
 	public static void addTeamsToLeague()
 	{
-		String info=""; String teamName=""; String teamFileInfo=""; String teamFileName="";
-		int whichLeague=menuBoxInt("Enter which league number to add teams/players to:"); // users dont know what number their leagues are!!!!!!
+		String info=""; String teamName=""; String teamFileInfo=""; String teamFileName=""; //=
+		int whichLeague=menuBoxInt("Enter which league number to add teams/players to:"); 
 		teamFileName=whichLeague+"_"+"participants.txt";
-		if(getNumberOfLeaguesMade()<whichLeague) // getnumber - ie 5 leagues made - but whichLeague is 10
+		if(getNumberOfLeaguesMade()<whichLeague) //=
 		{
 			outputBoxs("This league does not exist.");
 		}
@@ -204,29 +204,29 @@ public class League_Manager
 				info="enter team/player number:"+(i+1);
 				teamName=menuBox(info);
 				teamFileInfo=(i+1)+","+teamName;
-				writeFile(teamFileInfo,teamFileName); // writeFile or fileWriter !!
+				writeFile(teamFileInfo,teamFileName); //=
 			}
 		}
 	*/
 
 	//=========
 	
-    /*
-     	public static void createNewLeague()  // need to call the new writefall method
+    
+     	public static void createNewLeague()  
 	{
 		String leagueName=""; String leagueFileInput="";
 		leagueName=menuBox("Enter your league name:");
 		leagueFileInput=currentAdminNo+","+leagueName+","+leagueNo;
 		writeFile(leagueFileInput,leagueFile);
-	    leagueNo++;
+	    leagueNo++;  
 	}
-    */ 	
+    	
 	
 	//======
 	
 	/*
-	// is this giving a list of leagues he has or just counting the amount he made
-	public static int getNumberOfLeaguesMade()  // can the new readFile method be used? 
+	//=
+	public static int getNumberOfLeaguesMade()  //=
 	{
 		boolean sameAdmin=true;
 		boolean found=false;
@@ -262,13 +262,13 @@ public class League_Manager
 	 
 	 /*
 	 
-	 	 ///////  work in progress still ? i think
+	 	 //=
 	public static void addTeamsToLeague()
 	{
 		String info=""; String teamName=""; String teamFileInfo=""; String teamFileName="";
-		int whichLeague=menuBoxInt("Enter which league number to add teams/players to:"); // users dont know what number their leagues are!!!!!!
+		int whichLeague=menuBoxInt("Enter which league number to add teams/players to:"); //=
 		teamFileName=whichLeague+"_"+"participants.txt";
-		if(getNumberOfLeaguesMade()<whichLeague) // getnumber - ie 5 leagues made - but whichLeague is 10
+		if(getNumberOfLeaguesMade()<whichLeague) //=
 		{
 			outputBoxs("This league does not exist.");
 		}
@@ -280,7 +280,7 @@ public class League_Manager
 				info="enter team/player number:"+(i+1);
 				teamName=menuBox(info);
 				teamFileInfo=(i+1)+","+teamName;
-				writeFile(teamFileInfo,teamFileName); // writeFile or fileWriter !!
+				writeFile(teamFileInfo,teamFileName);
 			}
 		}
      }
