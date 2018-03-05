@@ -185,7 +185,7 @@ public class League_Manager
 	
 	
 	
-	/*
+	
     
 	public static void addTeamsToLeague()
 	{
@@ -207,7 +207,7 @@ public class League_Manager
 				writeFile(teamFileInfo,teamFileName); //=
 			}
 		}
-	*/
+	
 
 	//=========
 	
@@ -222,10 +222,10 @@ public class League_Manager
 	}
     	
 	
-	//======
 	
-	/*
-	//=
+	
+
+	
 	public static int getNumberOfLeaguesMade()  //=
 	{
 		boolean sameAdmin=true;
@@ -257,7 +257,7 @@ public class League_Manager
 		return numberOfLeagues;
 	} */
 	
-	 ///===========
+	 
 	 
 	 
 	 /*
@@ -575,7 +575,7 @@ public class League
 			}
 		}
 	}
-	
+/*	
 	public static int getNumberOfTeams(String teamFileName)
 	{
 		int numberOfTeams=0;
