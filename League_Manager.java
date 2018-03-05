@@ -361,14 +361,12 @@ public class League
 	
 	public static void main(String [] args)
 	{
-	//createNewLeague();
-    //addTeamsToLeague();
-	//fixtureGeneration();
-	outputBoxs(getTeamName(3,"1_participants.txt"));
+	createNewLeague();
+    addTeamsToLeague();
+	fixtureGeneration();
 	}
 	
 		 
-
 		 public static void writeFile(String input, String fileName)
 		 {
 		 try
@@ -561,34 +559,20 @@ public class League
 				{
 					fixtureAsText=fixtures[roundNumber][0];
 					elementOfFixture=fixtureAsText.split("v");
-					if(Integer.parseInt(elementOfFixture[1])==numberOfTeams)
-					{
-						fixtures[roundNumber][0]=elementOfFixture[1]+"v"+getTeamName(Integer.parseInt(elementOfFixture[0]),teamFileName);
-					}
-					else if(Integer.parseInt(elementOfFixture[0])==numberOfTeams)
-					{
-						fixtures[roundNumber][0]=getTeamName(Integer.parseInt(elementOfFixture[1]),teamFileName)+"v"+elementOfFixture[0];
-					}
-					else
-					{
-						fixtures[roundNumber][0]=getTeamName(Integer.parseInt(elementOfFixture[1]),teamFileName)+"v"+getTeamName(Integer.parseInt(elementOfFixture[0]),teamFileName);
-					}
+					fixtures[roundNumber][0]=elementOfFixture[1]+"v"+elementOfFixture[0];
 				}
 			}
+			int matchCounter=1;
 			for(roundNumber=0;roundNumber<totalNumberOfRounds;roundNumber++)
 			{
-				info="Round "+(roundNumber+1)+"\t\t";
-				writeFile(info,fixtureGenerationFileName);
 				for(matchNumber=0;matchNumber<numberOfMatchesPerRound;matchNumber++)
 				{
-					info="\tMatch "+ (matchNumber+1)+": "+fixtures[roundNumber][matchNumber]+ "\t";
+					info=matchCounter+",";
+					info=info+fixtures[roundNumber][matchNumber].substring(0,1)+","+fixtures[roundNumber][matchNumber].substring(2,3);
 					writeFile(info,fixtureGenerationFileName);
+					matchCounter++;
 				}
 			}
-			info="You will have to use the mirror image \n of these fixtures for return fixtures.";
-			writeFile(info,fixtureGenerationFileName);
-			info="Since you had "+(numberOfTeams)+" teams at the outset (uneven number), fixtures against team number "+(numberOfTeams+1)+" are byes.";
-			writeFile(info,fixtureGenerationFileName);
 		}
 	}
 	
@@ -619,7 +603,8 @@ public class League
 		return teamName;
 	}
 
-}*/
+}
+*/
 	
 	
 	
