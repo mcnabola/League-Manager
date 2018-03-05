@@ -85,7 +85,7 @@ public class League_Manager
 	 }
 	 
 	 // sean's readfile  - was readFile -- changed to readFile1 in the method commented below too
-	 	public static String readFile1(String textFile)
+	 	public static String readFile(String textFile)
 	{
 		String fileText="";
 		try
@@ -233,7 +233,7 @@ public class League_Manager
 		int currentAdminPostion=0; 
 		int temp=0;
 		int numberOfLeagues=0;
-		String [] arrayOfDetails=readFile1(leagueFile).split(",");
+		String [] arrayOfDetails=readFile(leagueFile).split(",");
 		for (int i=0;i<arrayOfDetails.length&&found==false;i=i+3)
 		{
 			temp=Integer.parseInt(arrayOfDetails[i]);
