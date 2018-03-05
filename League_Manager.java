@@ -208,8 +208,8 @@ public class League_Manager
 			}
 		}
 	
-
-	//=========
+	}
+	
 	
     
      	public static void createNewLeague()  
@@ -286,6 +286,26 @@ public class League_Manager
      }
 	 
 	 */
+		
+	/**
+	 *
+	 *
+	 */
+     	public static void addScoringScheme(int leagueNumber)
+	{
+		
+		int win = menuBoxInt("Enter the number of points given for a win:");
+		int draw = menuBoxInt("Enter the number of points given for a Draw:");
+		int lose = menuBoxInt("Enter the number of points given for a Lose:");
+		
+		
+		String fileName = (leagueNumber+"_scoring.txt");
+		String output = (win+","+draw+","+lose);
+		writeFile(fileName, output);	
+	}
+		
+		
+		
 	     /// includde this in all the gui methods
 		 /// is there a else in reply to the first if
 	 	public static boolean validateNumberInput(String text)
