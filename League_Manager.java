@@ -76,7 +76,7 @@ public class League_Manager
      {
 	     FileWriter aFileWriter = new FileWriter(filename,true);
          PrintWriter out = new PrintWriter(aFileWriter);			 
-	     out.print("\n" + output); // or output + "\n"
+	     out.print(output+"\n"); 
 	     out.close();
 		 aFileWriter.close();
      }
