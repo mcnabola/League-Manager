@@ -11,14 +11,58 @@ public class League_Manager
      
 	 public static void main(String[] args)
 	 {	
-	     String initialOptions= " 1-create league \n 2-Edit/view League \n 3-Remove League \n 4-Exit Application ";
-		 String subOptions=" 1-Fixture Generation \n 2-View Table 3-Input results \n 4-Add/remove teams \n 5-number of leagues made";
-		 String subOptionsOfSubOptions=" 1-Add teams 2-remove teams";
 	     // have these as arrays give a nicer finish? - use optionboxs method
          // include pauls code for main method here
+		 String result ="";
+		 String [] initialOptions= { "1-create league", "2-Edit/view League", "3-Remove League", "4-Exit Application" };
+		 String [] subOptions={" 1-Fixture Generation", "2-View Table", "3-Input results", "4-Add/remove teams", "5-Exit Application"};
+		String []subOptionsOfSubOptions={ "1-Add teams", "2-remove teams","3-Exit Application"};
+		int x=optionBoxs(initialOptions);
+		int y=0;
+		int z=0;
+		
+		switch (x)
+		{
+			case 0: createNewLeague();
+		    break;
+			case 1: y=optionBoxs(subOptions);
+			
+			switch (y)
+		{
+			case 0: fixtureGeneration();
+		    break;
+			case 1: displayTable();
+			break;
+			case 2: inputResults();
+			break;
+			case 3: z=optionBoxs(subOptionsOfSubOptions);
+			
+			switch (z)
+		{
+			case 0: addTeams();
+		    break;
+			case 1: removeTeams();
+			break;
+
+		}
+			break;
+			case 4: break;
+
+		}
+
+			break;
+			case 2: removeLeague();
+			break;
+			case 3: break;
+
+		}
+		
+		
+		
+	}
 		 
 		 
-	 }
+	 
      
 	 
 	 // START OF GUI METHODS
