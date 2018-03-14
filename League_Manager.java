@@ -14,10 +14,10 @@ public class League_Manager
 	     // have these as arrays give a nicer finish? - use optionboxs method
          // include pauls code for main method here
 		 String result ="";
-		 String [] initialOptions= { "1-create league", "2-Edit/view League", "3-Remove League", "4-Exit Application" };
-		 String [] subOptions={" 1-Fixture Generation", "2-View Table", "3-Input results", "4-Add/remove teams", "5-Exit Application"};
-		String []subOptionsOfSubOptions={ "1-Add teams", "2-remove teams","3-Exit Application"};
-	        boolean main = true;
+		String [] initialOptions= { "Create League", "Edit/View League", "Remove League", "Exit Application" };
+		String [] subOptions={"Fixture Generation", "View Table", "Input Results", "Main Menu" , "Exit Application"};
+		String []subOptionsOfSubOptions={ "Input Results", "Edit Results","Main Menu" , "Exit Application" };
+		boolean main = true;
 		while(main)  // && not null 
 		{	
 		    int x=optionBoxs(initialOptions,"Choose an option");
@@ -65,6 +65,7 @@ public class League_Manager
 			
 		
 		}
+	        } 
 		}
 		 
 		 
