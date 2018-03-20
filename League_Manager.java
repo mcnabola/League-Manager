@@ -1,3 +1,97 @@
+/*####
+import java.io.*;
+import javax.swing.*;
+import java.util.*;
+public class delete
+{
+	/// note about getting the number of leagues made - when logged in count once and then use global counter to keep track of it ? messy 
+    public static void main(String[ ]args)
+	{
+	    //  Show all the Leagues that the admin has access to and display them in a dropdown 
+		// user selects
+		// are you sure you want to delete "PremierLeague" this will also delete all content teams scoring league tables results 
+	    // delete league and all the assosiated leagues
+		// also need to remove league from the admin league file - load into arraylist - remove delete
+		
+		//deleteFile("tt.txt");
+		
+		/*
+		String[] arr = {"1","2","3","5"};
+		System.out.print(dropDown(arr,"Choose a League"));
+	     */
+		 
+		 String [] temp=readFile("league.txt","1",0,2); // change values called
+		 for ( int o = 0; o < temp.length;o++)
+		 {
+			 System.out.println(temp[o]);
+		 }
+	}
+	
+	
+	
+	public static void deleteFile(String deleteFile)
+	{
+	    String filename = deleteFile;  
+        File aFile = new File(filename);
+            if (!(aFile.exists()))
+                System.out.println(aFile.getName() + " does not exist.");
+            else if(aFile.delete())
+                System.out.println(aFile.getName() + " is now deleted.");
+            else
+                System.out.println("Operation to delete file failed.");
+    }
+	
+     public static String[] readFile(String textFile, String searchedItem, int itemPositionNo, int returnedItemNo)  
+	 {
+		 String x="";
+		 try
+		 {
+	        FileReader reader=new FileReader(textFile);
+			Scanner in=new Scanner(reader);
+			while(in.hasNext())
+			{    
+		        String fileText= in.nextLine();
+		        String[] split = fileText.split(","); 
+				if (split[itemPositionNo].equals(searchedItem))
+				{
+					// if true store the item in position returnedItemNo
+					x += split[returnedItemNo]+",";
+					
+				}
+				
+			}
+			in.close();
+			reader.close();		
+            
+		 }
+		 catch (Exception e)
+		 {}
+		 String[] returned = x.split(",");
+		 return returned;
+     } 
+	 
+	 public static void removeLeague(int adminNumber)
+	 {
+		 // load all the leagues that a admin has access to into a array 
+		 // pass array into dropdown
+		 // get the numeric value of said league
+		 // load leagues into arraylist
+		 // remove league
+		 // write file back to file
+     }
+	 /**
+	   * Creates a dropdown menu with a list of options to choose, returns the string of the value the user choose
+	   * String[] options is the list of things you want the user to choose from
+	   * String dialogText is the message you want displayed to guide the user on the dropdown box
+	   **/
+	 public static String dropDown(String[] options, String dialogText)
+	 {
+		 String selected = (String) JOptionPane.showInputDialog(null, dialogText,"Input",1,null,options,options[0]);  
+	     return selected;
+	 }
+
+
+}  */  ///// this is temporary for the removeLeague method
 import java.io.*;
 import javax.swing.*;
 import java.util.*;
