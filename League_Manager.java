@@ -232,7 +232,7 @@ public class League_Manager
 	 * Input - filename to push text to and the actual text you want put in the file.
 	 * Output - 
  	 */     // this method both appends to already created files and if a file doesnt exist it creates it and adds to it
-     public static void writeFile(String filename, String output)   /// fileWriter   or   writeFile   -- what has sean already started with
+     public static void writeFile(String output, String filename)   /// fileWriter   or   writeFile   -- what has sean already started with
 	 {
      try
      {
