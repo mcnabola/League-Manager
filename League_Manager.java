@@ -5,7 +5,6 @@ public class League_Manager
 {
     
 	 private static int currentAdminNo;
-	 private static int leagueNo=1;
 	 final static String leagueFile="league.txt";
 	 final static String adminFile="administrator.txt";
      
