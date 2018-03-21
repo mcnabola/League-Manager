@@ -4,7 +4,7 @@ import java.util.*;
 public class League_Manager 
 {
     
-	 private static int currentAdminNo=1;
+	 private static int currentAdminNo;
 	 private static int leagueNo=1;
 	 final static String leagueFile="league.txt";
 	 final static String adminFile="administrator.txt";
@@ -70,6 +70,33 @@ public class League_Manager
 		 
 		
 
+      	public static boolean loginMethod(String username,String password)
+	{
+	
+	    boolean loggedInStatus = false;
+		 try
+		 {
+		     Scanner s = new Scanner(new File(adminFile));
+		     String[] details;
+		     //ArrayList<String> leagues = new ArrayList<String>();
+		     while(s.hasNext())
+		     {
+			     // check for admin pass as its read in
+			     String v = s.next();
+                     details = v.split(",");
+	             if (details[1].equals(username) && details[2].equals(password))
+                     { 
+             		  loggedInStatus = true;
+                          currentAdminNo = Integer.parseInt(details[0]);					   
+              	     }			 
+	           } 
+		   s.close();
+		   }
+	        catch(IOException e)
+	        {}
+                return loggedInStatus;	
+	}  
+
 
 	public static void deleteFile(String deleteFile)
 	{
@@ -79,7 +106,7 @@ public class League_Manager
                 System.out.println(aFile.getName() + " does not exist.");
             else if(aFile.delete())
                 System.out.println(aFile.getName() + " is now deleted.");
-            else
+            else    // replace sys.out with optionboxs
                 System.out.println("Operation to delete file failed.");
     }
 	 
@@ -94,10 +121,11 @@ public class League_Manager
 		 
 		 // load league names into arraylist except the one league you wish to remove. (!leagueToRemove)
 		 ArrayList<String> leagues = new ArrayList<String>();
+		 int idNumber = 0;
 		 try{
 		 Scanner s = new Scanner(new File("league.txt"));
 		 String[] details;
-		 ArrayList<String> leagues = new ArrayList<String>();
+		 
 		 while(s.hasNext())
 		 {
 			 // check for leagueToRemove if not in the current line add to arraylist
@@ -106,7 +134,7 @@ public class League_Manager
 			 if (details[1].equals(leagueToRemove))
 			 {
 				 //get the league's ID number: details[2] : needed for removing 3_scoring, 3_participants etc
-				 int idNumber = details[2];
+				 idNumber = details[2];
 			 }
 			 else
 			 {
