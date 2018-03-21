@@ -11,8 +11,8 @@ public class League_Manager
      
 	 public static void main(String[] args)
 	 {	
-	     // have these as arrays give a nicer finish? - use optionboxs method
-         // include pauls code for main method here
+	     
+               // include pauls escape clause for the main while loop
 		 String result ="";
 		String [] initialOptions= { "Create League", "Edit/View League", "Remove League", "Exit Application" };
 		String [] subOptions={"Fixture Generation", "View Table", "Input Results", "Main Menu" , "Exit Application"};
@@ -84,29 +84,29 @@ public class League_Manager
     }
 	 
 	 
-	 // string or int adminNumber in the main file ?????? --- ADD A ARGUMENT adminNumber
-	 public static void removeLeague()
+	 // string or int adminNumber in the main file ?????? --- ADD ARGUMENT adminNumber
+	 public static void removeLeague(String adminNumber)
 	 {
 		 // load all the leagues that a admin has access to into a array
-         String [] temp=readFile("league.txt","1",0,1);		// adminNumber 
-		 // pass array into dropdown
+                 String [] temp=readFile("league.txt",adminNumber,0,1);		// adminNumber 
+		 // pass array with all of adminNumber's Leagues into dropdown
 		 String leagueToRemove = dropDown(temp,"Choose a league to remove.");
-		 // get the numeric value of said league
 		 
-		 // load league names "!leagueToRemove" into arraylist
+		 // load league names into arraylist except the one league you wish to remove. (!leagueToRemove)
 		 ArrayList<String> leagues = new ArrayList<String>();
 		 try{
 		 Scanner s = new Scanner(new File("league.txt"));
 		 String[] details;
-		 //ArrayList<String> leagues = new ArrayList<String>();
+		 ArrayList<String> leagues = new ArrayList<String>();
 		 while(s.hasNext())
 		 {
-			 // check for leagueToRemove if not in the line add to arraylist
+			 // check for leagueToRemove if not in the current line add to arraylist
 			 String v = s.next();
 			 details = v.split(",");
 			 if (details[1].equals(leagueToRemove))
 			 {
-				 //get the league position details[2] for removing 3_scoring 2_participants etc
+				 //get the league's ID number: details[2] : needed for removing 3_scoring, 3_participants etc
+				 int idNumber = details[2];
 			 }
 			 else
 			 {
@@ -117,26 +117,28 @@ public class League_Manager
 		 }
 		 catch(IOException e){}
 		 
+		 // Rewriting the leagues file with the arraylist with the desired league removed
 		 try{
 		 PrintWriter output = new PrintWriter("league.txt"); 
-         for (int i = 0; i<leagues.size();i++)
+                 for (int i = 0; i<leagues.size();i++)
 		 {
 			 output.println(leagues.get(i));
 			 //System.out.println(leagues.get(i));
 		 }
-           output.close();
+                 output.close();
 		 }
 		 catch(IOException e)
 		 {}
 		 
 		 /*
-		 number+"_scoring.txt
-		 number+"_participants.txt
-		 number+"_fixtures.txt
-		 number+"_results.txt
+		 number+"_scoring.txt"
+		 number+"_participants.txt"
+		 number+"_fixtures.txt"
+		 number+"_results.txt"
 		 */
-	     //////CALL DELETEFILE METHOD FOR THE ABOVE
-		 
+	         ///CALL DELETEFILE METHOD FOR THE ABOVE
+		 ///  deleteFile(idNumber+"_results.txt");
+                 ///  Awaiting guidance on the new file structure before adding it in.		 
 		 /// reading the file and if the line is not something you want to remove then add to arraylist - else dont add to arraylist
      }
 	 /**
