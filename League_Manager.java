@@ -130,12 +130,12 @@ public class League_Manager
 		 catch(IOException e)
 		 {}
 		 
-		 /*
-		 number+"_scoring.txt"
-		 number+"_participants.txt"
-		 number+"_fixtures.txt"
-		 number+"_results.txt"
-		 */
+		 
+		 deleteFile(adminNumber+"_"+number+"_scoring.txt");
+		 deleteFile(adminNumber+"_"+number+"_participants.txt");
+		 deleteFile(adminNumber+"_"+number+"_fixtures.txt");
+		 deleteFile(adminNumber+"_"+number+"_results.txt");
+		 
 	         ///CALL DELETEFILE METHOD FOR THE ABOVE
 		 ///  deleteFile(idNumber+"_results.txt");
                  ///  Awaiting guidance on the new file structure before adding it in.		 
