@@ -11,15 +11,13 @@ public class League_Manager
 	 public static void main(String[] args)
 	 {	
 	     
-               // include pauls escape clause for the main while loop
-		 String result ="";
-		String [] initialOptions= { "Create League", "Edit/View League", "Remove League", "Exit Application" };
-		String [] subOptions={"Fixture Generation", "View Table", "Input Results", "Main Menu" , "Exit Application"};
-		String []subOptionsOfSubOptions={ "Input Results", "Edit Results","Main Menu" , "Exit Application" };
-		boolean main = true;
-		while(main)  // && not null 
+                String [] initialOptions= { "1-create league", "2-Edit/view League", "3-Remove League", "4-Exit Application" };
+		 String [] subOptions={" 1-Fixture Generation", "2-View Table", "3-Input results", "4-Add teams","5-Back to Main Menu","6-Exit Application"};
+	        boolean main = true;
+		int x=0;
+		while(main&&x==0||x==1||x==2||x==3)  // && not null 
 		{	
-		    int x=optionBoxs(initialOptions,"Choose an option");
+		    x=optionBoxs(initialOptions,"Choose an option");
 		    int y=0;
 		    int z=0;
 		
@@ -33,39 +31,29 @@ public class League_Manager
 			    {
 					case 0: fixtureGeneration();
 					break;
-					case 1: displayTable();
+					case 1: generateTable();//displayTable();
 					break;
-					case 2: z=optionBoxs(subOptionsOfSubOptions,"Choose an option");
-						switch (z)
-						{
-							case 0: inputResults();
-							break;
-							case 1: editResults();
-							break;
-							case 2: 
-		                    break;
-							case 3: main = false;
-							break;
-							
-						}
-					case 3: break;
-					case 4: main = false;
+					case 2: editResults();  
+				    break;
+					case 3: addTeamsToLeague();
+					break;
+					case 4: break;
+					case 5: main = false;
 					break;
 
 				}
-
-				break;
-				case 2: removeLeague();
+                                break;
+			
+				case 2: removeLeague(Integer.toString(currentAdminNo));//removeLeague();
 				break;
 				case 3: main = false; 
 				break;
 
+				}
 			}
-			
+		}
 		
-		}
-	        } 
-		}
+}
 		 
 		
 
