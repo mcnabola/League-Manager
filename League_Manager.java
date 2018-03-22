@@ -69,9 +69,9 @@ public class finalLeague
 	}
 	
 	 /**
-	   *
-	   *
-	   *
+	   *Writes the input given to the file specified
+	   *input to method:passed a string of what the user wants to qrite to file and a filename of where the input is printed to.
+	   *the input is is wrote to file specified
 	   *
 	   **/		 
 		 public static void writeFile(String input, String fileName)
@@ -90,10 +90,10 @@ public class finalLeague
 		 {}
 		 }
 	 /**
-	   *
-	   *
-	   *
-	   *
+	   *a menu box which allows the user to enter a word or numbers and is returned as a string.
+	   *input:input is a string in which is displayed in the menubox
+	   *output:what the user enters is returned as a string.
+	   *includes checks to see if the user enters nothing and uses recursion
 	   **/		 
 	 public static String menuBox(String Options)
 	 {
@@ -116,23 +116,12 @@ public class finalLeague
 		 }
 		 return input;
 	 }
+
 	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/	 
-	 public static int menuBoxInt(String options)
-	{
-		String text = JOptionPane.showInputDialog(null, options);
-		int x = Integer.parseInt(text);
-		return x;
-	}
-	 /**
-	   *
-	   *
-	   *
-	   *
+	   *creates a new league and the info is wrote to file
+	   *input: the user has to input the name of the league
+	   *output:league info is wrote to the league file
+	   *also calls addTeamsToLeague which allows the user to add teams to the league made.
 	   **/	
 	public static void createNewLeague()throws IOException
 	{
@@ -180,9 +169,9 @@ public class finalLeague
 		}
 	}
 	 /**
-	   *
-	   *
-	   *
+	   *gets the number of leagues made so far by each administrator
+	   *input:passed the current administrator number
+	   *output:returns an integer of the amount of leagues made by that specific admin.
 	   *
 	   **/	
 	public static int getNumberOfLeaguesMade()
@@ -202,9 +191,9 @@ public class finalLeague
 		return numberOfLeagues;
 	}
 	 /**
-	   *
-	   *
-	   *
+	   *reads the file and adds it all to a string.
+	   *input: the file in which the user wants to read.
+	   *output:returns a string of everything in the file
 	   *
 	   **/	
 	public static String readFile(String textFile)
@@ -228,8 +217,8 @@ public class finalLeague
 		return fileText;
 	}
 	 /**
-	   *
-	   *
+	   *outputs a string
+	   *input:a string of what you want to diplay
 	   *
 	   *
 	   **/	
@@ -238,19 +227,9 @@ public class finalLeague
 	     JOptionPane.showMessageDialog(null, output);	
 	}
 	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/	
-	public static void outputBoxs(int output)
-	{
-		JOptionPane.showMessageDialog(null,output);
-	}
-	 /**
-	   *
-	   *
-	   *
+	   *asks the user how many teams they want to add to the league and writes it to the file.
+	   *input:the leagueNumber in which they want to add teams to.
+	   *output:the teams are wrote to the specific league participant file.
 	   *
 	   **/	
 	public static boolean addTeamsToLeague(int whichLeagues)throws IOException
@@ -320,9 +299,9 @@ public class finalLeague
 		return added;
 	}
 	 /**
-	   *
-	   *
-	   *
+	   *generates a fixture list for a given league in which the user selects.
+	   *input:the user has to select a league in which they want to generate a fixture list for.
+	   *output:the fixture list is output to a specific fixture generation file of the specified league.
 	   *
 	   **/	
 	public static void fixtureGeneration()throws IOException
@@ -494,9 +473,9 @@ public class finalLeague
 	}
 }
 	 /**
-	   *
-	   *
-	   *
+	   *gets the number of teams in a league.
+	   *input:the user inputs the name of the file they want to check.
+	   *output: returns a integer of the amount of teams.
 	   *
 	   **/	
 	public static int getNumberOfTeams(String teamFileName)
@@ -507,9 +486,9 @@ public class finalLeague
 		return numberOfTeams;
 	}
 	 /**
-	   *
-	   *
-	   *
+	   *returns a teamname after been given the team number and the filename
+	   *input: passed the teamNumber of which the user wants to get the name of and the filename they want to search.
+	   *output:returns a teamname in the form of a string.
 	   *
 	   **/	
 	public static String getTeamName(int teamNumber, String teamFileName)
@@ -608,9 +587,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		return found;
 	}
 	 /**
-	   *
-	   *
-	   *
+	   *check if a file exists and if it doesnt then it creates the file
+	   *input:passed the filename in which it is checked.
+	   *output:creates a file if it doesnt exist.
 	   *
 	   **/	
 	
