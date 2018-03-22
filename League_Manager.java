@@ -12,9 +12,9 @@ public class finalLeague
     public static ArrayList<ArrayList<Integer>> results;
     public static int [][] leaderBoard;
 	 /**
-	   *
-	   *
-	   *
+	   *Gui for user to navigate through commands
+	   *Input -user first logs in and then has numerous options through switch case
+	   *Output-User input is fed into specific methods to return desired result
 	   *
 	   **/	
 	public static void main(String [] args)throws IOException
@@ -600,9 +600,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 			adminFile.createNewFile();
 	}
 	 /**
-	   *
-	   *
-	   *
+	   *Check if a file exists and returns a boolean value
+	   *Input -the filename in question
+	   *output-boolean dependant on if the file exists
 	   *
 	   **/
 	public static boolean checkIfItExists(String fileName)throws IOException
@@ -630,9 +630,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
         return result;
 	}
 	 /**
-	   *
-	   *
-	   *
+	   *A method to validate the users input when a number in form of string is required
+	   *input-the string the user has entered
+	   *output-a boolean dependant on whether the input was valid
 	   *
 	   **/	
 	public static boolean validateNumberInput(String text)
@@ -704,9 +704,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		 return returned;
     } 
 	 /**
-	   *
-	   *
-	   *
+	   *Generates leaderboard of specified league by calling other methods
+	   *input-League number the user wants to generate the leaderboard for
+	   *output-this has no output but calls all the necessary methods to display leaderboards=
 	   *
 	   **/	
 	public static void generateTable(int leagueNumber)throws IOException
@@ -724,9 +724,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 			}
 	}
 	 /**
-	   *
-	   *
-	   *
+	   *Method to check if all relevant files exist to genrate table,If so it reads these files into an ArrayList	
+	   *input-The league Number the user wishes to generate the table for
+	   *output-This creates arraylists with the files data in them and also returns a boolean on whether they existed
 	   *
 	   **/	
 	 public static boolean readFilesIntoArrayLists( int leagueNumber) throws IOException
@@ -789,9 +789,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
       return false;
   }
 	 /**
-	   *
-	   *
-	   *
+	   *Creates a generic empty LeaderBoard based on amount of teams
+	   *Input-no input needed as it is called from another method
+	   *output-Creates a leaderboard of the correct size
 	   *
 	   **/  
   public static void createEmptyLeaderBoard()
@@ -806,9 +806,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
       leaderBoard[i][0] = Integer.parseInt(teams.get(0).get(i));
   }	  
 	 /**
-	   *
-	   *
-	   *
+	   *Uses the arraylists to process results and determine the points to award
+	   *input-no input needed
+	   *output-This method only calculates which method to call next based on the score of a game
 	   *
 	   **/  
   public static void processResults()
@@ -840,14 +840,14 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	  }    
     }
   }	 
-  
+   /**
+	   *This method fills the leaderboard with input based on the home team's perspective
+	   *input-HomeTeamNumber,Points for win,loss and draw,Home team score ,away team score and points
+	   *output-This fills the leaderboard partially
+	   *
+	   **/      
   public static void recordFixtureResultForHomeTeam(int hTN, int w, int d, int l, 
- 	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/                                                      int hTS, int aTS, int p)
+ 	                                                int hTS, int aTS, int p)
   {
 	leaderBoard[hTN-1][1]++;        			// gamesPlayed
 	leaderBoard[hTN-1][2]+= w;      			// homeWin
@@ -859,9 +859,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	leaderBoard[hTN-1][13] += p;    			// points
   }
  	 /**
-	   *
-	   *
-	   *
+	   *This method fills the leaderboard with input based on the Away team's perspective
+	   *input-AwayTeamNumber,Points for win,draw and loss,Home team score ,away team score and points
+	   *output-This fills the leaderboard partially
 	   *
 	   **/
   public static void recordFixtureResultForAwayTeam(int aTN, int w, int d, int l, 
@@ -877,9 +877,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	leaderBoard[aTN-1][13] += p;    			// points  
   }	
 	 /**
-	   *
-	   *
-	   *
+	   *Orders the leaderboard based on points using nested for loops
+	   *input-No input neccessary
+	   *output-Reorders the leaderboard
 	   *
 	   **/  
   public static void orderLeaderBoard()
@@ -905,9 +905,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
     }
   }	  
 	 /**
-	   *
-	   *
-	   *
+	   *Displays the finalised formatted leaderboard 
+	   *input-No input needed	
+	   *output-Prints the leaderboard on the cmd
 	   *
 	   **/	  
   public static void displayLeaderboard()
@@ -1363,9 +1363,9 @@ public static void removeLeague(String adminNumber)
                 outputBoxs("Operation to delete file failed.");
     }
 	 /**
-	   *
-	   *
-	   *
+	   *Takes the users scoring system and writes it to a file
+	   *input-League number they wish to set scoring scheme for
+	   *output-Writes a file called leaguenumber_Scoring.txt
 	   *
 	   **/
 	 public static void addScoringScheme(int leagueNumber)
@@ -1376,7 +1376,7 @@ public static void removeLeague(String adminNumber)
 		int lose = menuBoxInt("Enter the number of points given for a Lose:");
 		
 		
-		String fileName = (leagueNumber+"_scoring.txt");
+		String fileName = (currentAdminNo+"_"+leagueNumber+"_scoring.txt");
 		String output = (win+","+draw+","+lose);
 		writeFile(fileName, output);	
 	}
