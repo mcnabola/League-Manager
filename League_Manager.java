@@ -11,7 +11,12 @@ public class finalLeague
     public static ArrayList<ArrayList<Integer>> fixtures;	
     public static ArrayList<ArrayList<Integer>> results;
     public static int [][] leaderBoard;
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static void main(String [] args)throws IOException
 	{
 	checkIfExists(adminFile);
@@ -63,7 +68,12 @@ public class finalLeague
 		
 	}
 	
-		 
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/		 
 		 public static void writeFile(String input, String fileName)
 		 {
 		 try
@@ -79,7 +89,12 @@ public class finalLeague
 		 catch(Exception e)
 		 {}
 		 }
-		 
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/		 
 	 public static String menuBox(String Options)
 	 {
 		 String input="";
@@ -101,14 +116,24 @@ public class finalLeague
 		 }
 		 return input;
 	 }
-	 
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	 
 	 public static int menuBoxInt(String options)
 	{
 		String text = JOptionPane.showInputDialog(null, options);
 		int x = Integer.parseInt(text);
 		return x;
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static void createNewLeague()throws IOException
 	{
 		String leagueName=""; 
@@ -154,7 +179,12 @@ public class finalLeague
 			}
 		}
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static int getNumberOfLeaguesMade()
 	{
 		int numberOfLeagues=0;
@@ -171,7 +201,12 @@ public class finalLeague
 		}
 		return numberOfLeagues;
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static String readFile(String textFile)
 	{
 		String fileText="";
@@ -192,17 +227,32 @@ public class finalLeague
 		{}
 		return fileText;
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static void outputBoxs(String output)
 	{
 	     JOptionPane.showMessageDialog(null, output);	
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static void outputBoxs(int output)
 	{
 		JOptionPane.showMessageDialog(null,output);
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static boolean addTeamsToLeague(int whichLeagues)throws IOException
 	{
 		boolean added=false;
@@ -269,7 +319,12 @@ public class finalLeague
 		}
 		return added;
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static void fixtureGeneration()throws IOException
 	{
 	int numberOfTeams, totalNumberOfRounds, numberOfMatchesPerRound;
@@ -431,14 +486,19 @@ public class finalLeague
 					writeFile(info,fixtureGenerationFileName);
 					matchCounter++;	   
 			}	
-	   }
+	  				 }
+				}
+			}
+	
 		}
 	}
-	
-	}
-	}
 }
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static int getNumberOfTeams(String teamFileName)
 	{
 		int numberOfTeams=0;
@@ -446,7 +506,12 @@ public class finalLeague
 		numberOfTeams=Integer.parseInt(arrayOfDetails[arrayOfDetails.length - 2]);
 		return numberOfTeams;
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static String getTeamName(int teamNumber, String teamFileName)
 	{
 		String teamName="";
@@ -465,7 +530,12 @@ public class finalLeague
 		teamName=arrayOfDetails[positionInArray];
 		return teamName;
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static boolean loginMethod(String username, String password)
 	{
 		int maxLoginAttempts = 3;
@@ -502,7 +572,12 @@ public class finalLeague
 		}
 		return loggedInStatus;
 	}	
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 public static Boolean readFile(String fileName, String str1, String str2, int pos1, int pos2)
    	{
 		String[] fileElements;	
@@ -532,7 +607,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		
 		return found;
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	
 	public static void checkIfExists(String fileName)throws IOException
 	{
@@ -540,10 +620,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		if (!(adminFile.exists()))
 			adminFile.createNewFile();
 	}
-	
-	
-	
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
 	public static boolean checkIfItExists(String fileName)throws IOException
 	{
 		File file = new File(fileName);
@@ -557,13 +639,23 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 			
 	}
 	
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static int optionBoxs(String[] options,String whatYouWantItToSay)
 	{
         int result = JOptionPane.showOptionDialog(null, whatYouWantItToSay, "League Manager", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         return result;
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static boolean validateNumberInput(String text)
 	{
 		String result="";
@@ -598,6 +690,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		}
 		return verified ;
 	}
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
 	 public static String[] readFile(String textFile, String searchedItem, int itemPositionNo, int returnedItemNo)  
 	 {
 		 String x="";
@@ -626,6 +724,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		 String[] returned = x.split(",");
 		 return returned;
     } 
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	public static void generateTable(int leagueNumber)throws IOException
 	{
 		boolean readFile; 
@@ -640,7 +744,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 			displayLeaderboard();
 			}
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	
 	 public static boolean readFilesIntoArrayLists( int leagueNumber) throws IOException
   {
     String filename1 = currentAdminNo+"_"+leagueNumber+"_participants.txt";
@@ -700,7 +809,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
     else
       return false;
   }
-  
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/  
   public static void createEmptyLeaderBoard()
   {
 	// find out the number of teams/players which will determine 
@@ -712,7 +826,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	for (int i = 0; i < leaderBoard.length; i++)
       leaderBoard[i][0] = Integer.parseInt(teams.get(0).get(i));
   }	  
-  
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/  
   public static void processResults()
   {
 	int fixtureNumber, homeTeamScore, awayTeamScore, homeTeamNumber, awayTeamNumber;
@@ -744,7 +863,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
   }	 
   
   public static void recordFixtureResultForHomeTeam(int hTN, int w, int d, int l, 
-                                                       int hTS, int aTS, int p)
+ 	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/                                                      int hTS, int aTS, int p)
   {
 	leaderBoard[hTN-1][1]++;        			// gamesPlayed
 	leaderBoard[hTN-1][2]+= w;      			// homeWin
@@ -755,7 +879,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	leaderBoard[hTN-1][12] += (hTS - aTS);    	// goalDifference
 	leaderBoard[hTN-1][13] += p;    			// points
   }
- 
+ 	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
   public static void recordFixtureResultForAwayTeam(int aTN, int w, int d, int l, 
                                                        int hTS, int aTS, int p)
   {
@@ -768,7 +897,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	leaderBoard[aTN-1][12] += (aTS - hTS);    	// goalDifference
 	leaderBoard[aTN-1][13] += p;    			// points  
   }	
-  
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/  
   public static void orderLeaderBoard()
   {
 	int [][] temp = new int[leaderBoard.length][leaderBoard[0].length];
@@ -791,7 +925,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
       }
     }
   }	  
-	  
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/	  
   public static void displayLeaderboard()
   {
 	int aTeamNumber;
@@ -845,7 +984,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
       System.out.println();
     }
   } 
-  
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/  
   public static void displayFixtures()
 	//FIX JOP DISPLAY*********************
 	{
@@ -859,7 +1003,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		}
 		JOptionPane.showMessageDialog(null, temp);
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
 	public static String[] readFixtures(String leagueChoice)
 	{
 		ArrayList<ArrayList<String>> teams = new ArrayList<ArrayList<String>>();
@@ -902,7 +1051,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		{}
 	return fixtureDisplay;	
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
 	public static void editResults(String leagueNumber) throws IOException
 	//FIX JOP DISPLAY OF RESULTS***************
 	{
@@ -963,7 +1117,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		JOptionPane.showMessageDialog(null, "Generate Fixtures First");
 	}
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
 	public static void removeLineFromFile(String fileName, String toDel, int pos) //Params file name, String to delete, position of string
 	{
 		try {
@@ -1003,7 +1162,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
         }
 	}	
 		
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
 	
 	public static void displayResults()
 	{
@@ -1055,6 +1219,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		catch(Exception e)
 		{}
 	}
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
 	public static String getFixtureDetails(String fileName, int pos, int fixtureCount) //pos of item to get(), fixture(line)number
 	{
 		String returnValue = "";
@@ -1081,7 +1251,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		return returnValue;
 	}
 		
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
 	
 	public static Boolean readFile(String textFile, String searchedItem, int itemPositionNo)
     	{
@@ -1110,7 +1285,12 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		
 		return found;
 	}
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
 public static void removeLeague(String adminNumber)
 	 {
 		 // load all the leagues that a admin has access to into a array
@@ -1186,19 +1366,29 @@ public static void removeLeague(String adminNumber)
 		 }
 		 return selected;
 	 }
-	 
+	 /**
+	   * Delete File removes files from the users computer.
+	   * Input - String of the file name that you want removed.
+	   * Output - Void no output to the program but removes file from the system computer.
+	   *
+	   **/
 	 public static void deleteFile(String deleteFile)
 	{
 	    String filename = deleteFile;  
         File aFile = new File(filename);
             if (!(aFile.exists()))
-                System.out.println(aFile.getName() + " does not exist.");
+                outputBoxs(aFile.getName() + " does not exist.");
             else if(aFile.delete())
-                System.out.println(aFile.getName() + " is now deleted.");
+                outputBoxs(aFile.getName() + " is now deleted.");
             else
-                System.out.println("Operation to delete file failed.");
+                outputBoxs("Operation to delete file failed.");
     }
-
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
 	 public static void addScoringScheme(int leagueNumber)
 	{
 		
@@ -1213,5 +1403,3 @@ public static void removeLeague(String adminNumber)
 	}
 		
 }
-	
-
