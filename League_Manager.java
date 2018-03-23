@@ -542,9 +542,10 @@ public class finalLeague
 		return teamName;
 	}
 	 /**
-	   *
-	   *
-	   *
+	   * Compares username input and password input with values stored in a file
+	   * Gives the user three attempts to enter correct details
+	   * Input: User inputs a username string and a password string
+	   * Output: If inputted details are found in admin file, the method outputs a true boolean
 	   *
 	   **/	
 	public static boolean loginMethod(String username, String password)
@@ -584,11 +585,10 @@ public class finalLeague
 		return loggedInStatus;
 	}	
 	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/	
+	   * Overloaded readFile method to check if two strings are found in the same line in a file
+	   * Input: Takes a filename, two strings, and their positions in an array 0-2
+	   * Output: Returns a true Boolean if both strings are found in the fileElements array
+	   **/
 public static Boolean readFile(String fileName, String str1, String str2, int pos1, int pos2)
    	{
 		String[] fileElements;	
@@ -1021,11 +1021,11 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
   }
 	
 
-	 /**
-	   *
-	   *
-	   *
-	   *
+	   /**
+	   * Displays a list of fixtures in the chosen league and allows the user to enter a home score and away
+	   * score for the fixture. Does not display the fixtures containing byes
+	   * Input: Takes in the chosen league number
+	   * Output: Edited results are written to a results file including the fixture number, home score and away score
 	   **/
 	public static void editResults(int leagueNumber) throws IOException //NEW EDIT METHOD
 	{
@@ -1123,7 +1123,13 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		}
 	}
 	
-	
+	  /**
+	   * reads details of fixtures from file into a multidimensional arraylist 
+	   * fixtureDetails takes fixture number, home team number and away team number
+	   * teamDetails takes fixture number and home team name and away team name
+	   * Input: takes in league number to determine which files to search
+	   * Output: returns an array containing fixture number + home team V away Team
+	   **/
 	public static String[] readFixtures(String leagueChoice) //NEW READFIXTURES METHOD
 	{
 		fixtureDetails = new ArrayList<ArrayList<String>>(); //MAKE GLOBAL
@@ -1189,10 +1195,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		return fixtureDisplay;
 	}
 	 /**
-	   *
-	   *
-	   *
-	   *
+	   * Searches a file for a given string and recreates the file without the chosen file included
+	   * Input: takes the file name to search, the string to delete and the position in the array it is located in
+	   * Creates the new file with the same name as the old file without the deleted line
 	   **/
 	public static void removeLineFromFile(String fileName, String toDel, int pos) //Params file name, String to delete, position of string
 	{
