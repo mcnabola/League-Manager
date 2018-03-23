@@ -876,7 +876,11 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	  }    
     }
   }	 
-  
+    /**
+     * Method that takes an int input in a gui box , if the result is wrong it asks the user again until it's correct.
+     * input - the desired message to prompt users to enter a int
+     * output - the validated int result
+     **/
     public static int menuBoxInt(String whatYouWantItToSay)
 	{
 		int g;
@@ -1238,37 +1242,7 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
         }
 	}	
 		
-	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/
-	public static String getFixtureDetails(String fileName, int pos, int fixtureCount) //pos of item to get(), fixture(line)number
-	{
-		String returnValue = "";
-		String fixtureNumber = Integer.toString(fixtureCount);
-		String[] fileElements;
-		try
-		{
-			FileReader reader = new FileReader(fileName);
-			Scanner in = new Scanner(reader);
-			while(in.hasNext())
-			{
-				fileElements = in.nextLine().split(",");
-				if (fileElements[0].equals(Integer.toString(fixtureCount)))
-				{
-					returnValue =  fileElements[pos];
-					break;
-				}
-			}
-			in.close();
-			reader.close();
-		}
-		catch(Exception e)
-		{}
-		return returnValue;
-	}
+	 
 		
 	 /**
 	   * Search function of a comma delimited text file that returns a boolean based on the search parameters. 
