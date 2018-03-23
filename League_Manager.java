@@ -1046,65 +1046,100 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	   *
 	   *
 	   **/
-	public static void editResults(String leagueNumber) throws IOException
-	//FIX JOP DISPLAY OF RESULTS***************
-	{
-		String fixture=currentAdminNo+"_"+leagueNumber+"_fixtures.txt";
-		boolean ass=checkIfItExists(fixture);
-		System.out.print(ass);
-		if (ass==true)
+			public static void editResults(int leagueNumber) throws IOException
 		{
-		String pattern = "[0-9]{1,}";
-		int choice = 0;
-		int fixtureChoice = 0;
-		String homeScore = "", awayScore = "";
+		ArrayList<ArrayList<String>> editResults = new ArrayList<ArrayList<String>>();
+		editResults.add(new ArrayList<String>());
+		editResults.add(new ArrayList<String>());
+		editResults.add(new ArrayList<String>());
+		
 		boolean resultExists = false;
-		String matchNumberChoice = "";
-		String [] fixtureDisplay = readFixtures(leagueNumber);
-		String resultsFileName = currentAdminNo+"_"+leagueNumber + "_Results.txt";
-		fixtureChoice = JOptionPane.showOptionDialog(null, "Choose fixture to edit", "Click button", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, fixtureDisplay, fixtureDisplay[0]); //MAY CHANGE GUI
-		matchNumberChoice = Integer.toString(fixtureChoice);
-		resultExists = readFile(resultsFileName, Integer.toString(fixtureChoice+1), 0);
-		if (resultExists == true)
-		{		
-			choice = JOptionPane.showConfirmDialog(null, "Already entered result for this fixture, Do you want to edit the result?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);	
-			if (choice == JOptionPane.YES_OPTION) //If yes
+		String [] fixtureDisplay 		  = readFixtures(Integer.toString(leagueNumber));
+		String [] fixtureDisplayNoNumbers = new String[fixtureDisplay.length];
+
+		String fixture					  = currentAdminNo + "_" + leagueNumber+"_fixtures.txt";
+		String resultsFileName            = currentAdminNo + "_" + leagueNumber + "_results.txt";
+
+		String fixtureNumber = "";
+		String pattern 		 = "[0-9]{1,}";
+		int fixtureChoice = 0, choice = 0;
+		String homeScore  = "", awayScore = "";
+		int indexStr = 0;
+		String test  = "";
+		
+		boolean checker=checkIfItExists(fixture);
+		if (checker==true)
+		{
+			for (int i = 0;i< fixtureDisplayNoNumbers.length;i++)
 			{
-			removeLineFromFile(resultsFileName, Integer.toString(fixtureChoice+1), 0);
-			
-			homeScore = JOptionPane.showInputDialog(null, "Enter home score:");
-			while (!(homeScore.matches(pattern)))
-				homeScore = JOptionPane.showInputDialog(null, "Enter home score:");
-			awayScore = JOptionPane.showInputDialog(null, "Enter away score:");
-			while (!(awayScore.matches(pattern)))
-				awayScore = JOptionPane.showInputDialog(null, "Enter away score:");
-			String output = fixtureChoice+1 + "," + homeScore + "," + awayScore;
-			writeFile(output,resultsFileName);
-			//Give option to edit others or back out of menu
+				indexStr 				   = 	fixtureDisplay[i].indexOf(".") + 1;
+				fixtureDisplayNoNumbers[i] = 	fixtureDisplay[i].substring(indexStr);
 			}
 			
-			editResults(leagueNumber);
-			//ELSE TO BACK OUT TO MENU OPTIONS
+			String temp = dropDown(fixtureDisplayNoNumbers, "Select a fixture");		
+			if (!(temp != null))
+				return;
+			
+			for (int j = 0;j< fixtureDisplay.length;j++)
+			{
+				if (fixtureDisplay[j].contains(temp))
+				{
+					test = 		fixtureDisplay[j];
+					test = 		test.substring(0, (test.indexOf(".")));
+				}
+			}
+			
+			fixtureNumber= test;
+			resultExists = readFile(resultsFileName, fixtureNumber, 0);
+			
+			if (resultExists == true)
+			{		
+				choice = JOptionPane.showConfirmDialog(null, "Already entered result for this fixture, Do you want to edit the result?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);	
+				if (choice == JOptionPane.YES_OPTION) //If yes
+				{
+				removeLineFromFile(resultsFileName, fixtureNumber, 0);
+				
+				editResults.get(0).add(fixtureNumber);
+				
+				while (!(homeScore.matches(pattern)))
+					homeScore = 	menuBox("Enter home score:");
+				
+				editResults.get(1).add(homeScore);	
+				
+				while (!(awayScore.matches(pattern)))
+					awayScore = 	menuBox("Enter away score:");		
+				
+				editResults.get(2).add(awayScore);
+				
+				String output = 	fixtureNumber + "," + homeScore + "," + awayScore;
+				writeFile(output,resultsFileName);
+				}				
+				editResults(leagueNumber);
+			}	
+			else 
+			{
+				editResults.get(0).add(fixtureNumber);
+				
+				while (!(homeScore.matches(pattern)))
+					homeScore = 	menuBox("Enter home score:");
+				
+				editResults.get(1).add(homeScore);	
+				
+				while (!(awayScore.matches(pattern)))
+					awayScore = 	menuBox("Enter away score:");
+				
+				editResults.get(2).add(awayScore);
+			
+				String output = 	fixtureNumber + "," + homeScore + "," + awayScore;
+				writeFile(output,resultsFileName);
+
+				editResults(leagueNumber);
+			}		
 		}
 		else 
 		{
-			homeScore = JOptionPane.showInputDialog(null, "Invalid input\nEnter home score:");
-			while (!(homeScore.matches(pattern)))
-				homeScore = JOptionPane.showInputDialog(null, "Enter home score:");
-			awayScore = JOptionPane.showInputDialog(null, "Enter away score:");
-			while (!(awayScore.matches(pattern)))
-				awayScore = JOptionPane.showInputDialog(null, "Invalid input\nEnter away score:");
-		
-			String output = fixtureChoice+1 + "," + homeScore + "," + awayScore;
-			writeFile(output,resultsFileName);
-			//Give option to edit others or back out of menu
-			editResults(leagueNumber);
+			JOptionPane.showMessageDialog(null, "Generate Fixtures First");
 		}
-	}
-	else 
-	{
-		JOptionPane.showMessageDialog(null, "Generate Fixtures First");
-	}
 	}
 	 /**
 	   *
