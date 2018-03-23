@@ -10,6 +10,8 @@ public class finalLeague
 	public static ArrayList<ArrayList<String>>  teams;
     public static ArrayList<ArrayList<Integer>> fixtures;	
     public static ArrayList<ArrayList<Integer>> results;
+		public static ArrayList<ArrayList<String>>  fixtureDetails;
+	public static ArrayList<ArrayList<String>>  teamDetails;	
     public static int [][] leaderBoard;
 	 /**
 	   *Gui for user to navigate through commands
@@ -1381,4 +1383,168 @@ public static void removeLeague(String adminNumber)
 		writeFile(fileName, output);	
 	}
 		
+	public static void editResults(int leagueNumber) throws IOException //NEW EDIT METHOD
+	{
+		ArrayList<ArrayList<String>> editResults = new ArrayList<ArrayList<String>>();
+		editResults.add(new ArrayList<String>());
+		editResults.add(new ArrayList<String>());
+		editResults.add(new ArrayList<String>());
+		
+		boolean resultExists = false;
+		String [] fixtureDisplay 		  = readFixtures(Integer.toString(leagueNumber));
+		String [] fixtureDisplayNoNumbers = new String[fixtureDisplay.length];
+
+		String fixture					  = currentAdminNo + "_" + leagueNumber+"_fixtures.txt";
+		String resultsFileName            = currentAdminNo + "_" + leagueNumber + "_results.txt";
+
+		String fixtureNumber = "";
+		String pattern 		 = "[0-9]{1,}";
+		int fixtureChoice = 0, choice = 0;
+		String homeScore  = "", awayScore = "";
+		int indexStr = 0;
+		String test  = "";
+		
+		boolean checker=checkIfItExists(fixture);
+		if (checker==true)
+		{
+			for (int i = 0;i< fixtureDisplayNoNumbers.length;i++)
+			{
+				indexStr 				   = 	fixtureDisplay[i].indexOf(".") + 1;
+				fixtureDisplayNoNumbers[i] = 	fixtureDisplay[i].substring(indexStr);
+			}
+			
+			String temp = dropDown(fixtureDisplayNoNumbers, "Select a fixture");
+			
+			for (int j = 0;j< fixtureDisplay.length;j++)
+			{
+				if (fixtureDisplay[j].contains(temp))
+				{
+					test = 		fixtureDisplay[j];
+					test = 		test.substring(0, (test.indexOf(".")));
+				}
+			}
+			
+			fixtureNumber= test;
+			resultExists = readFile(resultsFileName, fixtureNumber, 0);
+			
+			if (resultExists == true)
+			{		
+				choice = JOptionPane.showConfirmDialog(null, "Already entered result for this fixture, Do you want to edit the result?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);	
+				if (choice == JOptionPane.YES_OPTION) //If yes
+				{
+				removeLineFromFile(resultsFileName, fixtureNumber, 0);
+				
+				editResults.get(0).add(fixtureNumber);
+				
+				while (!(homeScore.matches(pattern)))
+					homeScore = 	JOptionPane.showInputDialog(null, "Enter home score:");
+				
+				editResults.get(1).add(homeScore);	
+				
+				while (!(awayScore.matches(pattern)))
+					awayScore = 	JOptionPane.showInputDialog(null, "Enter away score:");		
+				
+				editResults.get(2).add(awayScore);
+				
+				String output = 	fixtureNumber + "," + homeScore + "," + awayScore;
+				writeFile(output,resultsFileName);
+				}
+				
+				editResults(leagueNumber);
+			}	
+			else 
+			{
+				editResults.get(0).add(fixtureNumber);
+				
+				while (!(homeScore.matches(pattern)))
+					homeScore = 	JOptionPane.showInputDialog(null, "Enter home score:");
+				
+				editResults.get(1).add(homeScore);	
+				
+				while (!(awayScore.matches(pattern)))
+					awayScore = 	JOptionPane.showInputDialog(null, "Enter away score:");
+				
+				editResults.get(2).add(awayScore);
+			
+				String output = 	fixtureNumber + "," + homeScore + "," + awayScore;
+				writeFile(output,resultsFileName);
+
+				editResults(leagueNumber);
+			}		
+		}
+		else 
+		{
+			JOptionPane.showMessageDialog(null, "Generate Fixtures First");
+		}
+	}
+	
+	
+	public static String[] readFixtures(String leagueChoice) //NEW READFIXTURES METHOD
+	{
+		fixtureDetails = new ArrayList<ArrayList<String>>(); //MAKE GLOBAL
+		fixtureDetails.add(new ArrayList<String>());
+		fixtureDetails.add(new ArrayList<String>());		
+		fixtureDetails.add(new ArrayList<String>());
+		
+		teamDetails =   new ArrayList<ArrayList<String>>(); //MAKE GLOBAL
+		teamDetails.add(new ArrayList<String>());
+		teamDetails.add(new ArrayList<String>());		
+		teamDetails.add(new ArrayList<String>());
+		
+		String homeTeam = "", awayTeam = "", fixtureNumber = "";
+		String temp1 	= "", temp2 = "";
+		String fileElements[] = {""};
+		String fixtureDisplay [] = {""};
+		String currentLeagueParticipants = currentAdminNo + "_" + leagueChoice + "_participants.txt";
+		int teamCount = getNumberOfTeams(currentLeagueParticipants);
+		try
+		{
+			File aFile = new File(currentAdminNo + "_" + leagueChoice +  "_fixtures.txt");
+			if (aFile.exists())
+			{
+				Scanner in = new Scanner(aFile);
+			
+				while (in.hasNext())
+				{
+					fileElements = in.nextLine().split(",");
+
+					if (Integer.parseInt(fileElements[1]) > teamCount || Integer.parseInt(fileElements[2]) > teamCount)
+					{
+					}
+					else
+					{
+						fixtureDetails.get(0).add(fileElements[0]);  
+						fixtureDetails.get(1).add(fileElements[1]);
+						fixtureDetails.get(2).add(fileElements[2]); 
+						
+						temp1 = getTeamName(Integer.parseInt(fileElements[1]), currentLeagueParticipants);
+						temp2 = getTeamName(Integer.parseInt(fileElements[2]), currentLeagueParticipants);
+						
+						teamDetails.get(0).add(fileElements[0]);
+						teamDetails.get(1).add(temp1);
+						teamDetails.get(1).add(temp2);
+			
+					}
+				}
+				in.close();				
+				fixtureDisplay = new String[fixtureDetails.get(0).size()];
+				for (int count = 0;count < fixtureDetails.get(0).size();count++)
+				{	
+					fixtureNumber = fixtureDetails.get(0).get(count);
+					homeTeam 	  = 	getTeamName(Integer.parseInt(fixtureDetails.get(1).get(count)), currentLeagueParticipants);
+					awayTeam      =		getTeamName(Integer.parseInt(fixtureDetails.get(2).get(count)), currentLeagueParticipants);
+					
+				
+					fixtureDisplay[count] = (fixtureNumber + "." + homeTeam + " V " + awayTeam);
+				}
+			}
+		}
+		catch(Exception e)
+		{}
+		return fixtureDisplay;
+	}
+	
+	
+	
+	
 }
