@@ -877,7 +877,7 @@ public class finalLeague
      * output - the validated int result
      **/
     public static int menuBoxInt(String whatYouWantItToSay)
-	{
+    {
 		int g;
 		String h = JOptionPane.showInputDialog(null,whatYouWantItToSay);
 		boolean check = validateNumberInput(h);
@@ -892,26 +892,26 @@ public class finalLeague
 		
 		}
 		return g;
-	}
+    }
 	
-   /**
+          /**
 	   *This method fills the leaderboard with input based on the home team's perspective
 	   *input-HomeTeamNumber,Points for win,loss and draw,Home team score ,away team score and points
 	   *output-This fills the leaderboard partially
 	   *
 	   **/      
-  public static void recordFixtureResultForHomeTeam(int hTN, int w, int d, int l, 
+          public static void recordFixtureResultForHomeTeam(int hTN, int w, int d, int l, 
  	                                                int hTS, int aTS, int p)
-  {
-	leaderBoard[hTN-1][1]++;        			// gamesPlayed
-	leaderBoard[hTN-1][2]+= w;      			// homeWin
-	leaderBoard[hTN-1][3]+= d;      			// homeDraw
-	leaderBoard[hTN-1][4]+= l;      			// homeLoss
-	leaderBoard[hTN-1][5]+= hTS;    			// homeTeamScore
-	leaderBoard[hTN-1][6]+= aTS;    			// awayTeamScore
-	leaderBoard[hTN-1][12] += (hTS - aTS);    	// goalDifference
-	leaderBoard[hTN-1][13] += p;    			// points
-  }
+          {
+	  leaderBoard[hTN-1][1]++;        			// gamesPlayed
+	  leaderBoard[hTN-1][2]+= w;      			// homeWin
+	  leaderBoard[hTN-1][3]+= d;      			// homeDraw
+	  leaderBoard[hTN-1][4]+= l;      			// homeLoss
+	  leaderBoard[hTN-1][5]+= hTS;    			// homeTeamScore
+	  leaderBoard[hTN-1][6]+= aTS;    			// awayTeamScore
+	  leaderBoard[hTN-1][12] += (hTS - aTS);    	// goalDifference
+	  leaderBoard[hTN-1][13] += p;    			// points
+          }
  	 /**
 	   *This method fills the leaderboard with input based on the Away team's perspective
 	   *input-AwayTeamNumber,Points for win,draw and loss,Home team score ,away team score and points
@@ -969,13 +969,13 @@ public class finalLeague
 	int aTeamNumber;
 	String aTeamName, formatStringTeamName;
 	String longestTeamName       = teams.get(1).get(0);
-    int    longestTeamNameLength = longestTeamName.length();
+        int    longestTeamNameLength = longestTeamName.length();
     
     for (int i = 1; i < teams.get(1).size(); i++)
     {
 	  longestTeamName = teams.get(1).get(i);  
-      if (longestTeamNameLength < longestTeamName.length())
-        longestTeamNameLength = longestTeamName.length();
+          if (longestTeamNameLength < longestTeamName.length())
+          longestTeamNameLength = longestTeamName.length();
     }
 	
 	//String b[][] = new String[teams.get(0).size()][14];
@@ -985,11 +985,10 @@ public class finalLeague
 	  
 	 /// For the JTable Output -- loading the team names into the first column of a 2d Array
 	 for (int i = 0; i < leaderBoard.length; i++)
-     {
-		// aTeamName = teams.get(1).get(i);
-         //b[i][0] = aTeamName;
+         {
+
 		  aTeamNumber       = leaderBoard[i][0];
-          aTeamName = teams.get(1).get(aTeamNumber - 1); 
+                  aTeamName = teams.get(1).get(aTeamNumber - 1); 
 		  b[i][0] =aTeamName;
 	 }
 	 
@@ -1007,27 +1006,25 @@ public class finalLeague
 	 
 	 
 	 JFrame f = new JFrame("LeaderBoard"); // (league_Name+" LeaderBoard")
-    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    Container content = f.getContentPane();
-    Object columns[] = {"Teams","GP","HW","HD","HL","GF","GA","AW","AD","AL","GF","GA","GD","TP"};
-    JTable table = new JTable(b, columns);
-    
-	
-	JOptionPane.showMessageDialog(null, new JScrollPane(table));
+         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         Container content = f.getContentPane();
+         Object columns[] = {"Teams","GP","HW","HD","HL","GF","GA","AW","AD","AL","GF","GA","GD","TP"};
+         JTable table = new JTable(b, columns);
+	 JOptionPane.showMessageDialog(null, new JScrollPane(table));
      	  
 	
     
   }
 	
 
-	   /**
+	  /**
 	   * Displays a list of fixtures in the chosen league and allows the user to enter a home score and away
 	   * score for the fixture. Does not display the fixtures containing byes
 	   * Input: Takes in the chosen league number
 	   * Output: Edited results are written to a results file including the fixture number, home score and away score
 	   **/
-	public static void editResults(int leagueNumber) throws IOException //NEW EDIT METHOD
-	{
+	   public static void editResults(int leagueNumber) throws IOException //NEW EDIT METHOD
+	   {
 		ArrayList<ArrayList<String>> editResults = new ArrayList<ArrayList<String>>();
 		editResults.add(new ArrayList<String>());
 		editResults.add(new ArrayList<String>());
