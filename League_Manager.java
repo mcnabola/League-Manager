@@ -1,8 +1,11 @@
 import java.io.*;
 import javax.swing.*;
 import java.util.*;
+import java.awt.*;
 public class finalLeague
 {
+	public static ArrayList<ArrayList<String>>  fixtureDetails;
+	public static ArrayList<ArrayList<String>>  teamDetails;	
 	private static int currentAdminNo;
 	final static String leagueFile="league.txt";
 	final static String adminFile="administrator.txt";
@@ -10,8 +13,6 @@ public class finalLeague
 	public static ArrayList<ArrayList<String>>  teams;
     public static ArrayList<ArrayList<Integer>> fixtures;	
     public static ArrayList<ArrayList<Integer>> results;
-		public static ArrayList<ArrayList<String>>  fixtureDetails;
-	public static ArrayList<ArrayList<String>>  teamDetails;	
     public static int [][] leaderBoard;
 	 /**
 	   *Gui for user to navigate through commands
@@ -27,8 +28,8 @@ public class finalLeague
 	boolean isLoggedIn = loginMethod(username, password);
 	if(isLoggedIn)
 	{
-	String [] initialOptions= { "1-create league", "2-Edit/view League", "3-Remove League" };
-		 String [] subOptions={" 1-Fixture Generation", "2-View Table", "3-Input results", "4-Add teams","5-Back to Main Menu"};
+	String [] initialOptions= { "Create league", "Edit/view League", "Remove League" };
+		 String [] subOptions={" Fixture Generation", "View Table", "Input results", "Add teams","Back to Main Menu"};
 	        boolean main = true;
 		int x=0;
 		while(main&&x==0||x==1||x==2||x==3)  // && not null 
@@ -47,24 +48,45 @@ public class finalLeague
 			    {
 					case 0: fixtureGeneration();
 					break;
-					case 1: String leagueNumber = JOptionPane.showInputDialog(null, "Enter league number to edit");
-					int league=Integer.parseInt(leagueNumber);
-					generateTable(league);//displayTable();
-					break;
-				    case 2: String [] selectionOfLeagues=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
-							String whichLeaguer=dropDown(selectionOfLeagues,"Select a League");
-							if(whichLeaguer.equals(""))
+					case 1:String [] selectionOfLeaguers=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
+							String whichLeaguers=dropDown(selectionOfLeaguers,"Select a League");
+							if(whichLeaguers.equals(""))
 								outputBoxs("you have not selected a league or no leagues exist.");									
+							else
+							{
+								String [] whichLeagues=readFile(leagueFile,whichLeaguers,1,2);
+								int whichLeague=Integer.parseInt(whichLeagues[0]);
+								generateTable(whichLeague);
+							}    
+					/*String leagueNumber = JOptionPane.showInputDialog(null, "Enter league number to edit");
+					int league=Integer.parseInt(leagueNumber);
+					generateTable(league);//displayTable();*/
+					break;
+					case 2:String [] selectionOfLeagues=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
+							String whichLeaguer=dropDown(selectionOfLeagues,"Select a League");						
+							 if(!(whichLeaguer!=null))
+							{
+								break;
+							}
 							else
 							{
 								String [] whichLeagues=readFile(leagueFile,whichLeaguer,1,2);
 								int whichLeague=Integer.parseInt(whichLeagues[0]);
 								editResults(whichLeague);
-							}				
+							}   
 				    break;
-					case 3: String leagueNumbers = JOptionPane.showInputDialog(null, "Enter league number to edit");
-					int leagues=Integer.parseInt(leagueNumbers);
-					addTeamsToLeague(leagues);
+					case 3: String [] selectionsOfLeagues=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
+							String whichLeaguerx=dropDown(selectionsOfLeagues,"Select a League");						
+							 if(!(whichLeaguerx!=null))
+							{
+								break;
+							}
+							else
+							{
+								String [] whichLeaguesx=readFile(leagueFile,whichLeaguerx,1,2);
+								int whichLeaguex=Integer.parseInt(whichLeaguesx[0]);
+								addTeamsToLeague(whichLeaguex);
+							}   
 					break;
 					case 4: break;
 				}
@@ -629,9 +651,9 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	}
 	
 	 /**
-	   *
-	   *
-	   *
+	   * Function that allows the user to select a box option of their choice. 
+	   * Input - A string array of options for the user to choose, and a string for displaying a comment to the user. 
+	   * Output - returns the integer position of the choice that the user made.
 	   *
 	   **/	
 	public static int optionBoxs(String[] options,String whatYouWantItToSay)
@@ -680,10 +702,10 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 		return verified ;
 	}
 	 /**
-	   *
-	   *
-	   *
-	   *
+	   * Searching function that is versatile to be used in comma delimited files.
+	   * Input - textFile is the file you want to search through, searchedItem is a string of what you want to search for in the file, itemPositionNo is the position of the "searchedItem" in 
+	   *         the comma delimited file, returnedItemNo is used once the "searchedItem" is found in the "itemPositionNo" -- it returns all items as an array where this conditional is held. 
+	   * output - A String array of all items in returnedItemNo, where "searchedItem" is found in index "itemPositionNo" of the CSV file.
 	   **/
 	 public static String[] readFile(String textFile, String searchedItem, int itemPositionNo, int returnedItemNo)  
 	 {
@@ -823,6 +845,10 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	   **/  
   public static void processResults()
   {
+	 int win = menuBoxInt("Enter Points for a win");
+	 int loss = menuBoxInt("Enter Points for a loss");
+	 int draw = menuBoxInt("Enter Points for a draw");
+
 	int fixtureNumber, homeTeamScore, awayTeamScore, homeTeamNumber, awayTeamNumber;
 	int position;
 	for (int i = 0; i < results.get(0).size(); i++)  
@@ -835,21 +861,40 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
 	  awayTeamNumber = fixtures.get(2).get(position);
 	  if (homeTeamScore == awayTeamScore)
 	  {
-		recordFixtureResultForHomeTeam(homeTeamNumber,0,1,0,homeTeamScore,awayTeamScore,1);
-		recordFixtureResultForAwayTeam(awayTeamNumber,0,1,0,homeTeamScore,awayTeamScore,1);
+		recordFixtureResultForHomeTeam(homeTeamNumber,0,1,0,homeTeamScore,awayTeamScore,draw);
+		recordFixtureResultForAwayTeam(awayTeamNumber,0,1,0,homeTeamScore,awayTeamScore,draw);
 	  }  
 	  else if (homeTeamScore > awayTeamScore)
 	  {
-		recordFixtureResultForHomeTeam(homeTeamNumber,1,0,0,homeTeamScore,awayTeamScore,3);
-		recordFixtureResultForAwayTeam(awayTeamNumber,0,0,1,homeTeamScore,awayTeamScore,0);  
+		recordFixtureResultForHomeTeam(homeTeamNumber,1,0,0,homeTeamScore,awayTeamScore,win);
+		recordFixtureResultForAwayTeam(awayTeamNumber,0,0,1,homeTeamScore,awayTeamScore,loss);  
 	  }  
 	  else
 	  {
-		recordFixtureResultForHomeTeam(homeTeamNumber,0,0,1,homeTeamScore,awayTeamScore,0);
-		recordFixtureResultForAwayTeam(awayTeamNumber,1,0,0,homeTeamScore,awayTeamScore,3);  
+		recordFixtureResultForHomeTeam(homeTeamNumber,0,0,1,homeTeamScore,awayTeamScore,loss);
+		recordFixtureResultForAwayTeam(awayTeamNumber,1,0,0,homeTeamScore,awayTeamScore,win);  
 	  }    
     }
   }	 
+  
+    public static int menuBoxInt(String whatYouWantItToSay)
+	{
+		int g;
+		String h = JOptionPane.showInputDialog(null,whatYouWantItToSay);
+		boolean check = validateNumberInput(h);
+		if (check ==  true)
+		{
+			g = Integer.parseInt(h);
+			
+		}
+		else
+		{
+		    g =	menuBoxInt("Please re-enter a valid number.");
+		
+		}
+		return g;
+	}
+	
    /**
 	   *This method fills the leaderboard with input based on the home team's perspective
 	   *input-HomeTeamNumber,Points for win,loss and draw,Home team score ,away team score and points
@@ -933,499 +978,55 @@ public static Boolean readFile(String fileName, String str1, String str2, int po
       if (longestTeamNameLength < longestTeamName.length())
         longestTeamNameLength = longestTeamName.length();
     }
-    formatStringTeamName = "%-" + (longestTeamNameLength + 2) + "s";
-    System.out.printf(formatStringTeamName,"Team Name");
-    //System.out.println("  GP  HW  HD  HL  GF  GA  AW  AD  AL  GF  GA   GD   TP");
-    System.out.printf("%5s" ,"GP");
-    System.out.printf("%5s" ,"HW");
-    System.out.printf("%5s" ,"GP");
-    System.out.printf("%5s" ,"GP");
-      System.out.printf("%5s" ,"GP");
-        System.out.printf("%5s" ,"GP");
-          System.out.printf("%5s" ,"GP");
-            System.out.printf("%5s" ,"GP");
-              System.out.printf("%5s" ,"GP");
-                System.out.printf("%5s" ,"GP");
-                  System.out.printf("%5s" ,"GP");
-                    System.out.printf("%6s" ,"GP");
-                      System.out.printf("%6s" ,"GP");
-      
-      System.out.println();
-   
-    for (int i = 0; i < leaderBoard.length; i++)
-    {
-	  aTeamNumber       = leaderBoard[i][0];
-	  aTeamName         = teams.get(1).get(aTeamNumber - 1);      
-      System.out.printf(formatStringTeamName, aTeamName);
-      System.out.printf("%5d", leaderBoard[i][1]);
-      System.out.printf("%5d", leaderBoard[i][2]);
-      System.out.printf("%5d", leaderBoard[i][3]);
-      System.out.printf("%5d", leaderBoard[i][4]);
-      System.out.printf("%5d", leaderBoard[i][5]);
-      System.out.printf("%5d", leaderBoard[i][6]);
-      System.out.printf("%5d", leaderBoard[i][7]);
-	  System.out.printf("%5d", leaderBoard[i][8]);
-      System.out.printf("%5d", leaderBoard[i][9]);
-      System.out.printf("%5d", leaderBoard[i][10]);
-      System.out.printf("%5d", leaderBoard[i][11]);
-      System.out.printf("%6d", leaderBoard[i][12]);
-      System.out.printf("%6d", leaderBoard[i][13]);
-      System.out.println();
-    }
-  } 
-	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/  
-  public static void displayFixtures()
-	//FIX JOP DISPLAY*********************
-	{
-		String temp = "";
-		String leagueChoice = JOptionPane.showInputDialog(null, "Enter league number to edit"); //FIX LEAGUE NUMBER CHOICE METHOD
-		String [] fixturesFormatted = readFixtures(leagueChoice); //FIXTURES FORMATTED AS "HOME - AWAY"
-		//DISPLAY FIXTURES HERE
-		for (int i = 0;i < fixturesFormatted.length-1;i++)
-		{
-			temp += fixturesFormatted[i] + "\n"; 
-		}
-		JOptionPane.showMessageDialog(null, temp);
-	}
-	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/
-	public static String[] readFixtures(String leagueChoice)
-	{
-		ArrayList<ArrayList<String>> teams = new ArrayList<ArrayList<String>>();
-		teams.add(new ArrayList<String>());
-		teams.add(new ArrayList<String>());
-		String homeTeam = "", awayTeam = "";
-		String currentLeagueFixtures = currentAdminNo+"_"+leagueChoice + "_fixtures.txt";
-		String currentLeagueParticipants = currentAdminNo+"_"+leagueChoice + "_participants.txt";
-		String [] fileElements;
-		Scanner in;
-		FileReader read;
-		String[] fixtureDisplay = {""};
-		
-		int fixtureCount = 0;
-		try
-		{
-			read = new FileReader(currentLeagueFixtures);
-			in = new Scanner(read);
-			while (in.hasNext())
-			{
-				fixtureCount++;
-				fileElements = in.nextLine().split(",");
-				teams.get(0).add(fileElements[1]);
-				teams.get(1).add(fileElements[2]);
-			}
-			read.close();
-			in.close();
-			
-			fixtureDisplay = new String[fixtureCount];
-			for (int i = 0;i < fixtureCount;i++)
-			{
-				homeTeam = getTeamName(Integer.parseInt(teams.get(0).get(i)), currentLeagueParticipants);
-				awayTeam = getTeamName(Integer.parseInt(teams.get(1).get(i)), currentLeagueParticipants);
-				fixtureDisplay[i] = (homeTeam + " V " + awayTeam);
-				System.out.print(fixtureDisplay[i]);
-			}
-		}
-		
-		catch(Exception e)
-		{}
-	return fixtureDisplay;	
-	}
-	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/
-			public static void editResults(int leagueNumber) throws IOException
-		{
-		ArrayList<ArrayList<String>> editResults = new ArrayList<ArrayList<String>>();
-		editResults.add(new ArrayList<String>());
-		editResults.add(new ArrayList<String>());
-		editResults.add(new ArrayList<String>());
-		
-		boolean resultExists = false;
-		String [] fixtureDisplay 		  = readFixtures(Integer.toString(leagueNumber));
-		String [] fixtureDisplayNoNumbers = new String[fixtureDisplay.length];
-
-		String fixture					  = currentAdminNo + "_" + leagueNumber+"_fixtures.txt";
-		String resultsFileName            = currentAdminNo + "_" + leagueNumber + "_results.txt";
-
-		String fixtureNumber = "";
-		String pattern 		 = "[0-9]{1,}";
-		int fixtureChoice = 0, choice = 0;
-		String homeScore  = "", awayScore = "";
-		int indexStr = 0;
-		String test  = "";
-		
-		boolean checker=checkIfItExists(fixture);
-		if (checker==true)
-		{
-			for (int i = 0;i< fixtureDisplayNoNumbers.length;i++)
-			{
-				indexStr 				   = 	fixtureDisplay[i].indexOf(".") + 1;
-				fixtureDisplayNoNumbers[i] = 	fixtureDisplay[i].substring(indexStr);
-			}
-			
-			String temp = dropDown(fixtureDisplayNoNumbers, "Select a fixture");		
-			if (!(temp != null))
-				return;
-			
-			for (int j = 0;j< fixtureDisplay.length;j++)
-			{
-				if (fixtureDisplay[j].contains(temp))
-				{
-					test = 		fixtureDisplay[j];
-					test = 		test.substring(0, (test.indexOf(".")));
-				}
-			}
-			
-			fixtureNumber= test;
-			resultExists = readFile(resultsFileName, fixtureNumber, 0);
-			
-			if (resultExists == true)
-			{		
-				choice = JOptionPane.showConfirmDialog(null, "Already entered result for this fixture, Do you want to edit the result?", "Confirm", JOptionPane.YES_OPTION, JOptionPane.NO_OPTION);	
-				if (choice == JOptionPane.YES_OPTION) //If yes
-				{
-				removeLineFromFile(resultsFileName, fixtureNumber, 0);
-				
-				editResults.get(0).add(fixtureNumber);
-				
-				while (!(homeScore.matches(pattern)))
-					homeScore = 	menuBox("Enter home score:");
-				
-				editResults.get(1).add(homeScore);	
-				
-				while (!(awayScore.matches(pattern)))
-					awayScore = 	menuBox("Enter away score:");		
-				
-				editResults.get(2).add(awayScore);
-				
-				String output = 	fixtureNumber + "," + homeScore + "," + awayScore;
-				writeFile(output,resultsFileName);
-				}				
-				editResults(leagueNumber);
-			}	
-			else 
-			{
-				editResults.get(0).add(fixtureNumber);
-				
-				while (!(homeScore.matches(pattern)))
-					homeScore = 	menuBox("Enter home score:");
-				
-				editResults.get(1).add(homeScore);	
-				
-				while (!(awayScore.matches(pattern)))
-					awayScore = 	menuBox("Enter away score:");
-				
-				editResults.get(2).add(awayScore);
-			
-				String output = 	fixtureNumber + "," + homeScore + "," + awayScore;
-				writeFile(output,resultsFileName);
-
-				editResults(leagueNumber);
-			}		
-		}
-		else 
-		{
-			JOptionPane.showMessageDialog(null, "Generate Fixtures First");
-		}
-	}
-	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/
-	public static void removeLineFromFile(String fileName, String toDel, int pos) //Params file name, String to delete, position of string
-	{
-		try {
-		String[] fileElements;
-		String line = "";
-        File inFile = new File(fileName);
-          if (!inFile.isFile()) {
-            System.out.println("Parameter is not an existing file");
-            return;
-          }
-          File tempFile = new File("temp.txt");
-          BufferedReader br = new BufferedReader(new FileReader(inFile));
-          PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
-          while ((line = br.readLine()) != null) 
-		  {
-			fileElements = line.split(","); 
-            if (!fileElements[pos].equals(toDel)) {
-              pw.println(line);
-              pw.flush();
-            }
-          }
-          pw.close();
-          br.close();
-          //Delete the original file
-          if (!inFile.delete()) {
-            System.out.println("Could not delete file");
-            return;
-          } 
-          //Rename the new file to the filename the original file had.
-          if (!tempFile.renameTo(inFile)) {
-            System.out.println("Could not rename file");
-          }
-        } catch (FileNotFoundException ex) {
-          ex.printStackTrace();
-        } catch (IOException ex) {
-          ex.printStackTrace();
-        }
-	}	
-		
-	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/
 	
-	public static void displayResults()
-	{
-		String leagueNumber = JOptionPane.showInputDialog(null, "Enter league number to edit");							//NEED TO SORT LEAGUE NUMBER VARIABLE
-		String homeTeamNumber = "", awayTeamNumber ="";
-		String homeTeamName ="", awayTeamName ="";
-		String homeTeamScore = "", awayTeamScore = "";
-		String temp = "";
-		String fixturesFileName = leagueNumber + "_fixtures.txt";
-		String teamFileName = leagueNumber + "_participants.txt";
-		String resultsFileName = leagueNumber + "_Results.txt";
-		ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
-		results.add(new ArrayList<String>());
-		results.add(new ArrayList<String>());
-		String[] fileElements;
-		String[] resultDisplay = {""};
-		int fixtureCount = 1;
-	
-		try
-		{
-			FileReader read = new FileReader(resultsFileName);
-			Scanner in = new Scanner(read);
-			while (in.hasNext())
-			{
-				fileElements = in.nextLine().split(",");
-				results.get(0).add(fileElements[1]);
-				results.get(1).add(fileElements[2]);;
-				fixtureCount++;
-			}
-			read.close();
-			in.close();
-			
-			resultDisplay = new String[fixtureCount];
-			for (int i=1;i<fixtureCount;i++)
-			{
-				homeTeamNumber = getFixtureDetails(fixturesFileName, 1, i);
-				awayTeamNumber = getFixtureDetails(fixturesFileName, 2, i);
-				homeTeamName = getTeamName(Integer.parseInt(homeTeamNumber), teamFileName);
-				awayTeamName = getTeamName(Integer.parseInt(awayTeamNumber), teamFileName);
-				homeTeamScore = results.get(0).get(i-1);
-				awayTeamScore = results.get(1).get(i-1);
-				
-				resultDisplay[i] = homeTeamName + "  " + homeTeamScore + " - " + awayTeamScore + "  " + awayTeamName;
-				temp += resultDisplay[i] + "\n";
-			}
-				//FIX THE DISPLAY 
-				JOptionPane.showMessageDialog(null, temp);
-		}
-		catch(Exception e)
-		{}
-	}
-	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/
-	public static String getFixtureDetails(String fileName, int pos, int fixtureCount) //pos of item to get(), fixture(line)number
-	{
-		String returnValue = "";
-		String fixtureNumber = Integer.toString(fixtureCount);
-		String[] fileElements;
-		try
-		{
-			FileReader reader = new FileReader(fileName);
-			Scanner in = new Scanner(reader);
-			while(in.hasNext())
-			{
-				fileElements = in.nextLine().split(",");
-				if (fileElements[0].equals(Integer.toString(fixtureCount)))
-				{
-					returnValue =  fileElements[pos];
-					break;
-				}
-			}
-			in.close();
-			reader.close();
-		}
-		catch(Exception e)
-		{}
-		return returnValue;
-	}
-		
-	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/
-	
-	public static Boolean readFile(String textFile, String searchedItem, int itemPositionNo)
-    	{
-		boolean found = false;
-		try
-		 {
-			item1 = "";
-	        FileReader reader=new FileReader(textFile);
-			Scanner in=new Scanner(reader);
-			while(in.hasNext())
-			{    
-		        String fileText=in.nextLine();
-		        String[] split = fileText.split(",");
-				if (split[itemPositionNo].equals(searchedItem))
-				{
-					found = true;
-					item1 = split[0]; // Admin#, League#, fixture#.
-					break;
-				}
-			}
-			in.close();
-			reader.close();	
-		 }
-		 catch (Exception e)
-		 {}
-		
-		return found;
-	}
-	 /**
-	   *
-	   *
-	   *
-	   *
-	   **/
-public static void removeLeague(String adminNumber)
-	 {
-		 // load all the leagues that a admin has access to into a array
-                 String [] temp=readFile("league.txt",adminNumber,0,1);		// adminNumber 
-		 // pass array with all of adminNumber's Leagues into dropdown
-		 String leagueToRemove = dropDown(temp,"Choose a league to remove.");
-		
-		 // load league names into arraylist except the one league you wish to remove. (!leagueToRemove)
-		 ArrayList<String> leagues = new ArrayList<String>();
-		 int idNumber=0;
-		 try{
-		 Scanner s = new Scanner(new File("league.txt"));
-		 String[] details;
-		
-		 while(s.hasNext())
-		 {
-			 // check for leagueToRemove if not in the current line add to arraylist
-			 String v = s.next();
-			 details = v.split(",");
-			 if (details[1].equals(leagueToRemove))
-			 {
-				 //get the league's ID number: details[2] : needed for removing 3_scoring, 3_participants etc
-				 idNumber = Integer.parseInt(details[2]);
-			 }
-			 else
-			 {
-				 leagues.add(v);
-			 }
-		 }
-		 s.close();
-		 }
-		 catch(IOException e){}
-		 
-		 // Rewriting the leagues file with the arraylist with the desired league removed
-		 try{
-		 PrintWriter output = new PrintWriter("league.txt"); 
-                 for (int i = 0; i<leagues.size();i++)
-		 {
-			 output.println(leagues.get(i));
-			 //System.out.println(leagues.get(i));
-		 }
-                 output.close();
-		 }
-		 catch(IOException e)
-		 {}
-		 
-		 
-		 deleteFile(adminNumber+"_"+idNumber+"_scoring.txt");
-		 deleteFile(adminNumber+"_"+idNumber+"_participants.txt");
-		 deleteFile(adminNumber+"_"+idNumber+"_fixtures.txt");
-		 deleteFile(adminNumber+"_"+idNumber+"_results.txt");
-		 
-	         ///CALL DELETEFILE METHOD FOR THE ABOVE
-		 ///  deleteFile(idNumber+"_results.txt");
-                 ///  Awaiting guidance on the new file structure before adding it in.		 
-		 /// reading the file and if the line is not something you want to remove then add to arraylist - else dont add to arraylist
-     }
-	 /**
-	   * Creates a dropdown menu with a list of options to choose, returns the string of the value the user choose
-	   * String[] options is the list of things you want the user to choose from
-	   * String dialogText is the message you want displayed to guide the user on the dropdown box
-	   **/
-	 public static String dropDown(String[] options, String dialogText)
-	 {
-		 String selected="";
-		 if(options.length==0)
-		 {
-			 
-		 }
-		 else
-		 {
-		 selected = (String) JOptionPane.showInputDialog(null, dialogText,"Input",1,null,options,options[0]);  
-		 }
-		 return selected;
+	//String b[][] = new String[teams.get(0).size()][14];
+	String b[][] = new String[leaderBoard.length][14];
+	 
+	 
+	  
+	 /// For the JTable Output -- loading the team names into the first column of a 2d Array
+	 for (int i = 0; i < leaderBoard.length; i++)
+     {
+		// aTeamName = teams.get(1).get(i);
+         //b[i][0] = aTeamName;
+		  aTeamNumber       = leaderBoard[i][0];
+          aTeamName = teams.get(1).get(aTeamNumber - 1); 
+		  b[i][0] =aTeamName;
 	 }
+	 
+	   
+	 /// Have to write the leaderBoard 2d int array into the rest of the b string array that will be used by the jtable
+	 for (int i=0; i<leaderBoard.length; i++)  
+	 {
+		 for (int y=1; y<leaderBoard[i].length; y++)//columns need the [] called too and use the outside loops i for the call value
+		 {
+			 String x = Integer.toString(leaderBoard[i][y]);
+			 b[i][y] = x;
+		 }
+		 
+	 }
+	 
+	 
+	 JFrame f = new JFrame("LeaderBoard"); // (league_Name+" LeaderBoard")
+    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    Container content = f.getContentPane();
+    Object columns[] = {"Teams","GP","HW","HD","HL","GF","GA","AW","AD","AL","GF","GA","GD","TP"};
+    JTable table = new JTable(b, columns);
+    
+	
+	JOptionPane.showMessageDialog(null, new JScrollPane(table));
+     	  
+	
+    
+  }
+	
+
 	 /**
-	   * Delete File removes files from the users computer.
-	   * Input - String of the file name that you want removed.
-	   * Output - Void no output to the program but removes file from the system computer.
+	   *
+	   *
+	   *
 	   *
 	   **/
-	 public static void deleteFile(String deleteFile)
-	{
-	    String filename = deleteFile;  
-        File aFile = new File(filename);
-            if (!(aFile.exists()))
-                outputBoxs(aFile.getName() + " does not exist.");
-            else if(aFile.delete())
-                outputBoxs(aFile.getName() + " is now deleted.");
-            else
-                outputBoxs("Operation to delete file failed.");
-    }
-	 /**
-	   *Takes the users scoring system and writes it to a file
-	   *input-League number they wish to set scoring scheme for
-	   *output-Writes a file called leaguenumber_Scoring.txt
-	   *
-	   **/
-	 public static void addScoringScheme(int leagueNumber)
-	{
-		
-		int win = menuBoxInt("Enter the number of points given for a win:");
-		int draw = menuBoxInt("Enter the number of points given for a Draw:");
-		int lose = menuBoxInt("Enter the number of points given for a Lose:");
-		
-		
-		String fileName = (currentAdminNo+"_"+leagueNumber+"_scoring.txt");
-		String output = (win+","+draw+","+lose);
-		writeFile(fileName, output);	
-	}
-		
 	public static void editResults(int leagueNumber) throws IOException //NEW EDIT METHOD
 	{
 		ArrayList<ArrayList<String>> editResults = new ArrayList<ArrayList<String>>();
@@ -1457,7 +1058,8 @@ public static void removeLeague(String adminNumber)
 			}
 			
 			String temp = dropDown(fixtureDisplayNoNumbers, "Select a fixture");
-			
+			if(!(temp!=null))//Allows user to cancel
+				return;
 			for (int j = 0;j< fixtureDisplay.length;j++)
 			{
 				if (fixtureDisplay[j].contains(temp))
@@ -1586,8 +1188,209 @@ public static void removeLeague(String adminNumber)
 		{}
 		return fixtureDisplay;
 	}
-	
-	
-	
-	
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
+	public static void removeLineFromFile(String fileName, String toDel, int pos) //Params file name, String to delete, position of string
+	{
+		try {
+		String[] fileElements;
+		String line = "";
+        File inFile = new File(fileName);
+          if (!inFile.isFile()) {
+            System.out.println("Parameter is not an existing file");
+            return;
+          }
+          File tempFile = new File("temp.txt");
+          BufferedReader br = new BufferedReader(new FileReader(inFile));
+          PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+          while ((line = br.readLine()) != null) 
+		  {
+			fileElements = line.split(","); 
+            if (!fileElements[pos].equals(toDel)) {
+              pw.println(line);
+              pw.flush();
+            }
+          }
+          pw.close();
+          br.close();
+          //Delete the original file
+          if (!inFile.delete()) {
+            System.out.println("Could not delete file");
+            return;
+          } 
+          //Rename the new file to the filename the original file had.
+          if (!tempFile.renameTo(inFile)) {
+            System.out.println("Could not rename file");
+          }
+        } catch (FileNotFoundException ex) {
+          ex.printStackTrace();
+        } catch (IOException ex) {
+          ex.printStackTrace();
+        }
+	}	
+		
+	 /**
+	   *
+	   *
+	   *
+	   *
+	   **/
+	public static String getFixtureDetails(String fileName, int pos, int fixtureCount) //pos of item to get(), fixture(line)number
+	{
+		String returnValue = "";
+		String fixtureNumber = Integer.toString(fixtureCount);
+		String[] fileElements;
+		try
+		{
+			FileReader reader = new FileReader(fileName);
+			Scanner in = new Scanner(reader);
+			while(in.hasNext())
+			{
+				fileElements = in.nextLine().split(",");
+				if (fileElements[0].equals(Integer.toString(fixtureCount)))
+				{
+					returnValue =  fileElements[pos];
+					break;
+				}
+			}
+			in.close();
+			reader.close();
+		}
+		catch(Exception e)
+		{}
+		return returnValue;
+	}
+		
+	 /**
+	   * Search function of a comma delimited text file that returns a boolean based on the search parameters. 
+	   * input - textFile, desired search file , searchedItem is a string of a item you want to find, itemPositionNo is the position in the comma delimited sequence to be searched in 
+	   * Output - returns a boolean whether or not the "searchedItem" is found in "itemPositionNo"
+	   *
+	   **/
+	public static Boolean readFile(String textFile, String searchedItem, int itemPositionNo)
+    	{
+		boolean found = false;
+		try
+		 {
+			item1 = "";
+	        FileReader reader=new FileReader(textFile);
+			Scanner in=new Scanner(reader);
+			while(in.hasNext())
+			{    
+		        String fileText=in.nextLine();
+		        String[] split = fileText.split(",");
+				if (split[itemPositionNo].equals(searchedItem))
+				{
+					found = true;
+					item1 = split[0]; // Admin#, League#, fixture#.
+					break;
+				}
+			}
+			in.close();
+			reader.close();	
+		 }
+		 catch (Exception e)
+		 {}
+		
+		return found;
+	}
+	 /**
+	   * Removes a League from a user selected dropDown 
+	   * input - the adminNumber, this is the admin who wants the option of removing a league
+	   * output - there is no output - the method removes the league and its assosiating files from the system 
+	   *
+	   **/
+public static void removeLeague(String adminNumber)
+	 {
+		 // load all the leagues that a admin has access to into a array
+                 String [] temp=readFile("league.txt",adminNumber,0,1);		// adminNumber 
+		 // pass array with all of adminNumber's Leagues into dropdown
+		 String leagueToRemove = dropDown(temp,"Choose a league to remove.");
+		
+		 // load league names into arraylist except the one league you wish to remove. (!leagueToRemove)
+		 ArrayList<String> leagues = new ArrayList<String>();
+		 int idNumber=0;
+		 try{
+		 Scanner s = new Scanner(new File("league.txt"));
+		 String[] details;
+		
+		 while(s.hasNext())
+		 {
+			 // check for leagueToRemove if not in the current line add to arraylist
+			 String v = s.next();
+			 details = v.split(",");
+			 if (details[1].equals(leagueToRemove))
+			 {
+				 //get the league's ID number: details[2] : needed for removing 3_scoring, 3_participants etc
+				 idNumber = Integer.parseInt(details[2]);
+			 }
+			 else
+			 {
+				 leagues.add(v);
+			 }
+		 }
+		 s.close();
+		 }
+		 catch(IOException e){}
+		 
+		 // Rewriting the leagues file with the arraylist with the desired league removed
+		 try{
+		 PrintWriter output = new PrintWriter("league.txt"); 
+                 for (int i = 0; i<leagues.size();i++)
+		 {
+			 output.println(leagues.get(i));
+			 //System.out.println(leagues.get(i));
+		 }
+                 output.close();
+		 }
+		 catch(IOException e)
+		 {}
+		 
+		 // deleting the assosiated files with each league
+		 deleteFile(adminNumber+"_"+idNumber+"_participants.txt");
+		 deleteFile(adminNumber+"_"+idNumber+"_fixtures.txt");
+		 deleteFile(adminNumber+"_"+idNumber+"_results.txt");
+		 
+     }
+	 /**
+	   * Creates a dropdown menu with a list of options to choose, returns the string of the value the user choose
+	   * String[] options is the list of things you want the user to choose from
+	   * String dialogText is the message you want displayed to guide the user on the dropdown box
+	   **/
+	 public static String dropDown(String[] options, String dialogText)
+	 {
+		 String selected="";
+		 if(options.length==0)
+		 {
+			 
+		 }
+		 else
+		 {
+		 selected = (String) JOptionPane.showInputDialog(null, dialogText,"Input",1,null,options,options[0]);  
+		 }
+		 return selected;
+	 }
+	 /**
+	   * Delete File removes files from the users computer.
+	   * Input - String of the file name that you want removed.
+	   * Output - Void no output to the program but removes file from the system computer.
+	   *
+	   **/
+	 public static void deleteFile(String deleteFile)
+	{
+	    String filename = deleteFile;  
+        File aFile = new File(filename);
+            if (!(aFile.exists()))
+                outputBoxs(aFile.getName() + " does not exist.");
+            else if(aFile.delete())
+                outputBoxs("Operation to Remove: Successful");
+            else
+                outputBoxs("Operation to delete file failed.");
+    }
+	 
+		
 }
