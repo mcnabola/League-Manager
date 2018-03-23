@@ -11,9 +11,9 @@ public class finalLeague
 	final static String adminFile="administrator.txt";
 	private static String item1;
 	public static ArrayList<ArrayList<String>>  teams;
-    public static ArrayList<ArrayList<Integer>> fixtures;	
-    public static ArrayList<ArrayList<Integer>> results;
-    public static int [][] leaderBoard;
+        public static ArrayList<ArrayList<Integer>> fixtures;	
+        public static ArrayList<ArrayList<Integer>> results;
+        public static int [][] leaderBoard;
 	 /**
 	   *Gui for user to navigate through commands
 	   *Input -user first logs in and then has numerous options through switch case
@@ -29,7 +29,7 @@ public class finalLeague
 	if(isLoggedIn)
 	{
 	String [] initialOptions= { "Create league", "Edit/view League", "Remove League" };
-		 String [] subOptions={" Fixture Generation", "View Table", "Input results", "Add teams","Back to Main Menu"};
+		String [] subOptions={" Fixture Generation", "View Table", "Input results", "Add teams","Back to Main Menu"};
 	        boolean main = true;
 		int x=0;
 		while(main&&x==0||x==1||x==2||x==3)  // && not null 
@@ -41,7 +41,7 @@ public class finalLeague
 		    switch (x)
 		    {
 			    case 0: createNewLeague();
-		        break;
+		            break;
 			    case 1: y=optionBoxs(subOptions,"Choose an option");
 			
 			    switch (y)
@@ -58,9 +58,7 @@ public class finalLeague
 								int whichLeague=Integer.parseInt(whichLeagues[0]);
 								generateTable(whichLeague);
 							}    
-					/*String leagueNumber = JOptionPane.showInputDialog(null, "Enter league number to edit");
-					int league=Integer.parseInt(leagueNumber);
-					generateTable(league);//displayTable();*/
+					
 					break;
 					case 2:String [] selectionOfLeagues=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
 							String whichLeaguer=dropDown(selectionOfLeagues,"Select a League");						
@@ -74,12 +72,12 @@ public class finalLeague
 								int whichLeague=Integer.parseInt(whichLeagues[0]);
 								editResults(whichLeague);
 							}   
-				    break;
+				        break;
 					case 3: String [] selectionsOfLeagues=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
 							String whichLeaguerx=dropDown(selectionsOfLeagues,"Select a League");						
-							 if(!(whichLeaguerx!=null))
+							if(!(whichLeaguerx!=null))
 							{
-								break;
+							break;
 							}
 							else
 							{
@@ -90,7 +88,7 @@ public class finalLeague
 					break;
 					case 4: break;
 				}
-                break;
+                                break;
 			
 				case 2: removeLeague(Integer.toString(currentAdminNo));//removeLeague();
 				break;
@@ -106,16 +104,16 @@ public class finalLeague
 	   *the input is is wrote to file specified
 	   *
 	   **/		 
-		 public static void writeFile(String input, String fileName)
-		 {
-		 try
-		 {
-		     FileWriter aFileWriter = new FileWriter(fileName,true);
-             PrintWriter out = new PrintWriter(aFileWriter);
-			 out.print(input);
-			 out.println();
-			 out.close();
-			 aFileWriter.close();
+          public static void writeFile(String input, String fileName)
+	  {
+	  try
+	  {
+                FileWriter aFileWriter = new FileWriter(fileName,true);
+                PrintWriter out = new PrintWriter(aFileWriter);
+	        out.print(input);
+		out.println();
+		out.close();
+		aFileWriter.close();
         			
 		 }
 		 catch(Exception e)
