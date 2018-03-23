@@ -51,8 +51,16 @@ public class finalLeague
 					int league=Integer.parseInt(leagueNumber);
 					generateTable(league);//displayTable();
 					break;
-					case 2:String leagueNum = JOptionPane.showInputDialog(null, "Enter league number to edit");
-					       editResults(leagueNum);  
+				    case 2: String [] selectionOfLeagues=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
+							String whichLeaguer=dropDown(selectionOfLeagues,"Select a League");
+							if(whichLeaguer.equals(""))
+								outputBoxs("you have not selected a league or no leagues exist.");									
+							else
+							{
+								String [] whichLeagues=readFile(leagueFile,whichLeaguer,1,2);
+								int whichLeague=Integer.parseInt(whichLeagues[0]);
+								editResults(whichLeague);
+							}				
 				    break;
 					case 3: String leagueNumbers = JOptionPane.showInputDialog(null, "Enter league number to edit");
 					int leagues=Integer.parseInt(leagueNumbers);
