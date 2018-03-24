@@ -2,7 +2,7 @@ import java.io.*;
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
-public class finalLeague
+public class FinalLeague
 {
 	public static ArrayList<ArrayList<String>>  fixtureDetails;
 	public static ArrayList<ArrayList<String>>  teamDetails;	
@@ -367,13 +367,12 @@ public class finalLeague
 	{
 		outputBoxs("Fixtures alredy exist for this league, it will now be regenerated");
 		deleteFile(fixtureGenerationFileName);
-		if (!(teamFile.exists()))
+	}
+	else if (!(teamFile.exists()))
 	{
 		outputBoxs("There is no teams in this league.");
 		added=addTeamsToLeague(whichLeague);
 	}
-	else
-	{
 	int selection=getNumberOfTeams(teamFileName);	
         if (selection != 0)
         {
@@ -429,77 +428,7 @@ public class finalLeague
 					matchCounter++;	   
 			}	
 	   }
-		}
 	}
-	}
-	else
-	{
-	if (!(teamFile.exists()))
-	{
-		outputBoxs("There is no teams in this league.");
-		added=addTeamsToLeague(whichLeague);
-	}
-	else
-	{
-	int selection=getNumberOfTeams(teamFileName);	
-    if (selection != 0)
-    {
-       numberOfTeams = selection; 
-       if (numberOfTeams % 2 == 1)
-       {
-	     numberOfTeams++;
-	     additionalTeamIncluded = true;
-       }
-	   totalNumberOfRounds     = numberOfTeams - 1;
-       numberOfMatchesPerRound = numberOfTeams / 2;
-       fixtures = new String[totalNumberOfRounds][numberOfMatchesPerRound];  
-        
-       for (roundNumber = 0; roundNumber < totalNumberOfRounds; roundNumber++) 
-       {
-         for (matchNumber = 0; matchNumber < numberOfMatchesPerRound; matchNumber++) 
-	     {
-           homeTeamNumber = (roundNumber + matchNumber) % (numberOfTeams - 1);
-		   awayTeamNumber = (numberOfTeams - 1 - matchNumber + roundNumber) % (numberOfTeams - 1);
-           if (matchNumber == 0) 
-             awayTeamNumber = numberOfTeams - 1;
-		   fixtures[roundNumber][matchNumber] = (homeTeamNumber + 1) + "," + (awayTeamNumber + 1);
-         }
-       } 
-	   revisedFixtures = new String[totalNumberOfRounds][numberOfMatchesPerRound];
-       even = 0;
-       odd = numberOfTeams / 2;
-       for (int i = 0; i < fixtures.length; i++) 
-       {
-         if (i % 2 == 0) 	
-           revisedFixtures[i] = fixtures[even++];
-         else 				
-           revisedFixtures[i] = fixtures[odd++];
-       }
-       fixtures = revisedFixtures;
-       int matchCounter=1;
-       for (roundNumber = 0; roundNumber < fixtures.length; roundNumber++) 
-       {
-         if (roundNumber % 2 == 1) 
-	     {
-	       fixtureAsText = fixtures[roundNumber][0];
-	       elementsOfFixture = fixtureAsText.split(",");
-           fixtures[roundNumber][0] = elementsOfFixture[1] + "," + elementsOfFixture[0];
-	     }
-       }
-		for (roundNumber = 0; roundNumber < totalNumberOfRounds; roundNumber++) 
-       {
-		   for (matchNumber = 0; matchNumber < numberOfMatchesPerRound; matchNumber++) 
-		    {
-					info=matchCounter+",";
-					info=info+fixtures[roundNumber][matchNumber];
-					writeFile(info,fixtureGenerationFileName);
-					matchCounter++;	   
-			}	
-	  				 }
-				}
-			}
-	
-		}
 	}
 }
 	 /**
