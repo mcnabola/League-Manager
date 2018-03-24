@@ -1023,13 +1023,8 @@ public class finalLeague
 	   * Input: Takes in the chosen league number
 	   * Output: Edited results are written to a results file including the fixture number, home score and away score
 	   **/
-	   public static void editResults(int leagueNumber) throws IOException //NEW EDIT METHOD
-	   {
-		ArrayList<ArrayList<String>> editResults = new ArrayList<ArrayList<String>>();
-		editResults.add(new ArrayList<String>());
-		editResults.add(new ArrayList<String>());
-		editResults.add(new ArrayList<String>());
-		
+	public static void editResults(int leagueNumber) throws IOException //NEW EDIT METHOD
+	{
 		boolean resultExists = false;
 		String [] fixtureDisplay 		  = readFixtures(Integer.toString(leagueNumber));
 		String [] fixtureDisplayNoNumbers = new String[fixtureDisplay.length];
@@ -1040,7 +1035,7 @@ public class finalLeague
 		String fixtureNumber = "";
 		String pattern 		 = "[0-9]{1,}";
 		int fixtureChoice = 0, choice = 0;
-		String homeScore  = "", awayScore = "";
+		int homeScore  = 0, awayScore = 0;
 		int indexStr = 0;
 		String test  = "";
 		
@@ -1074,18 +1069,11 @@ public class finalLeague
 				if (choice == JOptionPane.YES_OPTION) //If yes
 				{
 				removeLineFromFile(resultsFileName, fixtureNumber, 0);
+							
 				
-				editResults.get(0).add(fixtureNumber);
-				
-				while (!(homeScore.matches(pattern)))
-					homeScore = 	JOptionPane.showInputDialog(null, "Enter home score:");
-				
-				editResults.get(1).add(homeScore);	
-				
-				while (!(awayScore.matches(pattern)))
-					awayScore = 	JOptionPane.showInputDialog(null, "Enter away score:");		
-				
-				editResults.get(2).add(awayScore);
+				homeScore = 	menuBoxInt("Enter home score:");	
+			
+				awayScore = 	menuBoxInt("Enter away score:");		
 				
 				String output = 	fixtureNumber + "," + homeScore + "," + awayScore;
 				writeFile(output,resultsFileName);
@@ -1095,17 +1083,12 @@ public class finalLeague
 			}	
 			else 
 			{
-				editResults.get(0).add(fixtureNumber);
 				
-				while (!(homeScore.matches(pattern)))
-					homeScore = 	JOptionPane.showInputDialog(null, "Enter home score:");
+			
+				homeScore = 	menuBoxInt("Enter home score:");	
 				
-				editResults.get(1).add(homeScore);	
-				
-				while (!(awayScore.matches(pattern)))
-					awayScore = 	JOptionPane.showInputDialog(null, "Enter away score:");
-				
-				editResults.get(2).add(awayScore);
+			
+				awayScore = 	menuBoxInt("Enter away score:");
 			
 				String output = 	fixtureNumber + "," + homeScore + "," + awayScore;
 				writeFile(output,resultsFileName);
