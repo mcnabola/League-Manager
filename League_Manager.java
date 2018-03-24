@@ -24,7 +24,7 @@ public class finalLeague
 	{
 	checkIfExists(adminFile);
 	String username = JOptionPane.showInputDialog(null, "Enter username");
-	String password = JOptionPane.showInputDialog(null, "Enter password"); //Will work on method for hidden password input in swing
+	String password = JOptionPane.showInputDialog(null, "Enter password"); 
 	boolean isLoggedIn = loginMethod(username, password);
 	if(isLoggedIn)
 	{
@@ -1023,7 +1023,7 @@ public class finalLeague
 	   * Input: Takes in the chosen league number
 	   * Output: Edited results are written to a results file including the fixture number, home score and away score
 	   **/
-	public static void editResults(int leagueNumber) throws IOException //NEW EDIT METHOD
+	public static void editResults(int leagueNumber) throws IOException 
 	{
 		boolean resultExists = false;
 		String [] fixtureDisplay 		  = readFixtures(Integer.toString(leagueNumber));
