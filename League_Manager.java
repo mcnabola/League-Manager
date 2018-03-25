@@ -467,72 +467,48 @@ public class latestFinalLeague
 	   * Output: If inputted details are found in admin file, the method outputs a true boolean
 	   *
 	   **/	
-	public static boolean loginMethod(String username, String password)
+		public static boolean loginMethod(String username, String password)
 	{
-		int maxLoginAttempts = 3;
-		String loginMethod = "";
-		boolean loggedInStatus = false;
-		boolean foundUserDetails = false;
-		
-		for (int i=maxLoginAttempts;i>0;i--)
+		File adminFilename = new File(adminFile);
+		Scanner in;
+		String[] fileElements;
+		boolean found = false;
+		int loginAttempts = 3;
+		try
 		{
-			foundUserDetails = readFile(adminFile, username, password, 1, 2);
-			if (foundUserDetails == true)
+			if (adminFilename.exists())
 			{
-				currentAdminNo = Integer.parseInt(item1);
-				loggedInStatus = true;
-				JOptionPane.showMessageDialog(null, "Successfully logged in as " + username);
-				break;
-			}
-			else
-			{
-				if (maxLoginAttempts == 1)
+				while (!found)
 				{
-					JOptionPane.showMessageDialog(null, "Incorrect login details\nNo attempt remaining");
-					break;
-				}	
-				else
-				{
-					JOptionPane.showMessageDialog(null, "Incorrect login details\n" + (maxLoginAttempts-1) + " attempt(s) remaining");
-					maxLoginAttempts--;
-					username = JOptionPane.showInputDialog(null, "Enter username");
-					password = JOptionPane.showInputDialog(null, "Enter password");
-					foundUserDetails = readFile(adminFile, username, password, 1, 2);
+					in = new Scanner(adminFilename);
+					while (in.hasNext())
+					{
+						fileElements = in.nextLine().split(",");
+						if (username.equals(fileElements[1]) && password.equals(fileElements[2]))
+						{
+							found = true;
+						}
+					}
+					in.close();
+					if (!found)
+					{
+						loginAttempts--; 
+						if (loginAttempts == 0)
+						{
+							JOptionPane.showMessageDialog(null, "No attempts remaining.");
+							break;
+						}
+						 outputBoxs("Incorrect login details.\n" + loginAttempts + " attempt(s) remaining.");
+						username = menuBox("Enter username");
+						password = menuBox("Enter password");
+					}
+					else
+						outputBoxs("Successfully logged in as " + username);	
 				}
 			}
 		}
-		return loggedInStatus;
-	}	
-	 /**
-	   * Overloaded readFile method to check if two strings are found in the same line in a file
-	   * Input: Takes a filename, two strings, and their positions in an array 0-2
-	   * Output: Returns a true Boolean if both strings are found in the fileElements array
-	   **/
-    public static Boolean readFile(String fileName, String str1, String str2, int pos1, int pos2)
-   	{
-		String[] fileElements;	
-		boolean found = false;
-		Scanner in;
-		FileReader read;
-		try
-		{
-	        read = new FileReader(fileName);
-			in = new Scanner(read);
-			while(in.hasNext())
-			{    
-		        fileElements= (in.nextLine()).split(",");	
-				if (fileElements[pos1].equals(str1) && fileElements[pos2].equals(str2))
-				{
-					found = true;
-					item1 = fileElements[0]; // Admin#, League#, fixture#.
-					break;
-				}
-			}
-			in.close();
-			read.close();	
-		 }
-		 catch (Exception e)
-		 {}
+		catch(Exception e)
+		{}
 		return found;
 	}
 	 /**
