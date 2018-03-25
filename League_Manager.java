@@ -11,9 +11,9 @@ public class latestFinalLeague
 	final static String adminFile="administrator.txt";
 	private static String item1;
 	public static ArrayList<ArrayList<String>>  teams;
-    public static ArrayList<ArrayList<Integer>> fixtures;	
-    public static ArrayList<ArrayList<Integer>> results;
-    public static int [][] leaderBoard;
+        public static ArrayList<ArrayList<Integer>> fixtures;	
+        public static ArrayList<ArrayList<Integer>> results;
+        public static int [][] leaderBoard;
 	 /**
 	   *Gui for user to navigate through commands
 	   *Input -user first logs in and then has numerous options through switch case
@@ -28,66 +28,62 @@ public class latestFinalLeague
 	boolean isLoggedIn = loginMethod(username, password);
 	if(isLoggedIn)
 	{
-	    String [] initialOptions= { "Create league", "Edit/view League", "Remove League" };
-		String [] subOptions={" Fixture Generation", "View Table", "Input results", "Add teams","Back to Main Menu"};
-	    boolean main = true;
-		int x=0;
-		while(main&&x==0||x==1||x==2||x==3)  
-		{	
-		    x=optionBoxs(initialOptions,"Choose an option");
-		    int y=0;
-		    int z=0;
-		
-		    switch (x)
-		    {
-			    case 0: createNewLeague();
-		        break;
-			    case 1: y=optionBoxs(subOptions,"Choose an option");
-			
-			    switch (y)
-			    {
-					case 0: fixtureGeneration();
-					break;
-					case 1:String [] selectionOfLeaguers=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
-							String whichLeaguers=dropDown(selectionOfLeaguers,"Select a League");
-							if(whichLeaguers.equals(""))
-								outputBoxs("you have not selected a league or no leagues exist.");									
-							else
-							{
-								String [] whichLeagues=readFile(leagueFile,whichLeaguers,1,2);
-								int whichLeague=Integer.parseInt(whichLeagues[0]);
-								generateTable(whichLeague);
-							}    
-					
-					break;
-					case 2:String [] selectionOfLeagues=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
-							String whichLeaguer=dropDown(selectionOfLeagues,"Select a League");						
-							 if(!(whichLeaguer!=null))
-							{
-								break;
-							}
-							else
-							{
-								String [] whichLeagues=readFile(leagueFile,whichLeaguer,1,2);
-								int whichLeague=Integer.parseInt(whichLeagues[0]);
-								editResults(whichLeague);
-							}   
-				        break;
-					case 3: String [] selectionsOfLeagues=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
-							String whichLeaguerx=dropDown(selectionsOfLeagues,"Select a League");						
-							if(!(whichLeaguerx!=null))
-							{
+	String [] initialOptions= { "Create league", "Edit/view League", "Remove League" };
+        String [] subOptions={" Fixture Generation", "View Table", "Input results", "Add teams","Back to Main Menu"};
+	boolean main = true;
+	int x=0;
+	while(main&&x==0||x==1||x==2||x==3)  
+	{	
+	      x=optionBoxs(initialOptions,"Choose an option");
+	      int y=0;
+	      int z=0;
+	      switch (x)
+	      {
+	             case 0: createNewLeague();
+		     break;
+	             case 1: y=optionBoxs(subOptions,"Choose an option");			
+		     switch (y)
+		     {
+				case 0: fixtureGeneration();
+				break;
+				case 1:String [] selectionOfLeaguers=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
+						String whichLeaguers=dropDown(selectionOfLeaguers,"Select a League");
+						if(whichLeaguers.equals(""))
+							outputBoxs("you have not selected a league or no leagues exist.");									
+						else
+						{
+							String [] whichLeagues=readFile(leagueFile,whichLeaguers,1,2);
+							int whichLeague=Integer.parseInt(whichLeagues[0]);
+							generateTable(whichLeague);
+						}    
+				break;
+				case 2:String [] selectionOfLeagues=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
+						String whichLeaguer=dropDown(selectionOfLeagues,"Select a League");						
+						 if(!(whichLeaguer!=null))
+						{
 							break;
-							}
-							else
-							{
-								String [] whichLeaguesx=readFile(leagueFile,whichLeaguerx,1,2);
-								int whichLeaguex=Integer.parseInt(whichLeaguesx[0]);
-								addTeamsToLeague(whichLeaguex);
-							}   
-					break;
-					case 4: break;
-				}
+						}
+						else
+						{
+							String [] whichLeagues=readFile(leagueFile,whichLeaguer,1,2);
+							int whichLeague=Integer.parseInt(whichLeagues[0]);
+							editResults(whichLeague);
+						}   
+			        break;
+				case 3: String [] selectionsOfLeagues=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
+						String whichLeaguerx=dropDown(selectionsOfLeagues,"Select a League");						
+						if(!(whichLeaguerx!=null))
+						{
+						break;
+						}
+						else
+						{	String [] whichLeaguesx=readFile(leagueFile,whichLeaguerx,1,2);
+							int whichLeaguex=Integer.parseInt(whichLeaguesx[0]);
+							addTeamsToLeague(whichLeaguex);
+						}   
+				break;
+				case 4: break;
+			}
                                 break;
 			
 				case 2: removeLeague(Integer.toString(currentAdminNo));
@@ -103,20 +99,19 @@ public class latestFinalLeague
 	   *
 	   **/		 
       public static void writeFile(String input, String fileName)
-	  {
-	     try
-	     {
+      {
+	try
+	    {
             FileWriter aFileWriter = new FileWriter(fileName,true);
             PrintWriter out = new PrintWriter(aFileWriter);
-	        out.print(input);
+	    out.print(input);
             out.println();
             out.close();
-            aFileWriter.close();
-        			
-	     }
-	     catch(Exception e)
-	     {}
-	  }
+            aFileWriter.close();		
+	    }
+	    catch(Exception e)
+	    {}
+      }
 	 /**
 	   *a menu box which allows the user to enter a word or numbers and is returned as a string.
 	   *input:input is a string in which is displayed in the menubox
@@ -127,12 +122,12 @@ public class latestFinalLeague
 	 {
 		 String input="";
 		 input=JOptionPane.showInputDialog(null,Options);
-		if(!(input != null))
+	       	 if(!(input != null))
 		 {
 			outputBoxs("You must enter a word/number");
 			input=menuBox(Options);
 		 }
-		else if(input.equals(""))
+		 else if(input.equals(""))
 		 {
 			outputBoxs("You must enter a word/number");
 			input=menuBox(Options);
@@ -315,8 +310,7 @@ public class latestFinalLeague
 				teamName=menuBox(info);
 				teamFileInfo=(counter+1)+","+teamName;
 				writeFile(teamFileInfo,teamFileName);
-				counter++;
-				
+				counter++;		
 			}
 			added=true;
 			outputBoxs("please reselect your league");
@@ -413,10 +407,10 @@ public class latestFinalLeague
 	     {
 	       fixtureAsText = fixtures[roundNumber][0];
 	       elementsOfFixture = fixtureAsText.split(",");
-           fixtures[roundNumber][0] = elementsOfFixture[1] + "," + elementsOfFixture[0];
+               fixtures[roundNumber][0] = elementsOfFixture[1] + "," + elementsOfFixture[0];
 	     }
        }
-		for (roundNumber = 0; roundNumber < totalNumberOfRounds; roundNumber++) 
+       for (roundNumber = 0; roundNumber < totalNumberOfRounds; roundNumber++) 
        {
 		   for (matchNumber = 0; matchNumber < numberOfMatchesPerRound; matchNumber++) 
 		    {
@@ -424,11 +418,11 @@ public class latestFinalLeague
 					info=info+fixtures[roundNumber][matchNumber];
 					writeFile(info,fixtureGenerationFileName);
 					matchCounter++;	   
-			}	
-	   }
+		    }	
 	}
 	}
-}
+	}
+   }
 	 /**
 	   *gets the number of teams in a league.
 	   *input:the user inputs the name of the file they want to check.
@@ -593,9 +587,9 @@ public class latestFinalLeague
 		String result="";
 		String pattern="[0-9]{0,10}";
 		String message1 = "A number must be input.";
-	    String message2 = "Format of user input is incorrect, a number  is required.";
+	        String message2 = "Format of user input is incorrect, a number  is required.";
 		boolean verified=false;
-		if      (text != null)        
+		if (text != null)        
 		{ 
 			if (text.equals(""))   
 			{
@@ -631,7 +625,7 @@ public class latestFinalLeague
 		 String x="";
 		 try
 		 {
-	        FileReader reader=new FileReader(textFile);
+	         FileReader reader=new FileReader(textFile);
 			Scanner in=new Scanner(reader);
 			while(in.hasNext())
 			{    
@@ -677,28 +671,28 @@ public class latestFinalLeague
 	   *output-This creates arraylists with the files data in them and also returns a boolean on whether they existed
 	   *
 	   **/	
-	 public static boolean readFilesIntoArrayLists( int leagueNumber) throws IOException
+  public static boolean readFilesIntoArrayLists( int leagueNumber) throws IOException
   {
     String filename1 = currentAdminNo+"_"+leagueNumber+"_participants.txt";
     String filename2 = currentAdminNo+"_"+leagueNumber+"_fixtures.txt";
     String filename3 = currentAdminNo+"_"+leagueNumber+"_Results.txt";
     
-    String fileElements[];
+        String fileElements[];
 	File inputFile1 = new File(filename1);
 	File inputFile2 = new File(filename2);
 	File inputFile3 = new File(filename3);
 	
-	    teams = new ArrayList<ArrayList<String>>();
-	    teams.add(new ArrayList<String>());
+	teams = new ArrayList<ArrayList<String>>();
+	teams.add(new ArrayList<String>());
         teams.add(new ArrayList<String>());
-  
+	  
         fixtures = new ArrayList<ArrayList<Integer>>();
-	    fixtures.add(new ArrayList<Integer>());
+	fixtures.add(new ArrayList<Integer>());
         fixtures.add(new ArrayList<Integer>());
         fixtures.add(new ArrayList<Integer>());
     
         results = new ArrayList<ArrayList<Integer>>();
-	    results.add(new ArrayList<Integer>());
+	results.add(new ArrayList<Integer>());
         results.add(new ArrayList<Integer>());
         results.add(new ArrayList<Integer>());
     
@@ -745,7 +739,7 @@ public class latestFinalLeague
      public static void createEmptyLeaderBoard()
      {
 	  // find out the number of teams/players which will determine the number of rows
-      int rows = teams.get(0).size();
+          int rows = teams.get(0).size();
 	  int columns = 14;  
 	  leaderBoard = new int[rows][columns];
 	  // place team numbers in column 0 of leader board
@@ -767,7 +761,7 @@ public class latestFinalLeague
 	int fixtureNumber, homeTeamScore, awayTeamScore, homeTeamNumber, awayTeamNumber;
 	int position;
 	for (int i = 0; i < results.get(0).size(); i++)  
-    {
+        {
 	  fixtureNumber  = results.get(0).get(i);
 	  homeTeamScore  = results.get(1).get(i);
 	  awayTeamScore  = results.get(2).get(i);
@@ -803,13 +797,11 @@ public class latestFinalLeague
 		boolean check = validateNumberInput(h);
 		if (check ==  true)
 		{
-			g = Integer.parseInt(h);
-			
+			g = Integer.parseInt(h);		
 		}
 		else
 		{
 		    g =	menuBoxInt("Please re-enter a valid number.");
-		
         }
 		return g;
     }
@@ -829,7 +821,7 @@ public class latestFinalLeague
 	  leaderBoard[hTN-1][4]+= l;      			// homeLoss
 	  leaderBoard[hTN-1][5]+= hTS;    			// homeTeamScore
 	  leaderBoard[hTN-1][6]+= aTS;    			// awayTeamScore
-	  leaderBoard[hTN-1][12] += (hTS - aTS);    	// goalDifference
+	  leaderBoard[hTN-1][12] += (hTS - aTS);    	        // goalDifference
 	  leaderBoard[hTN-1][13] += p;    			// points
      }
  	 /**
@@ -847,7 +839,7 @@ public class latestFinalLeague
 	leaderBoard[aTN-1][9]+= l;      			// awayLoss
 	leaderBoard[aTN-1][10]+= aTS;    			// awayTeamScore
 	leaderBoard[aTN-1][11]+= hTS;    			// homeTeamScore
-	leaderBoard[aTN-1][12] += (aTS - hTS);    	// goalDifference
+	leaderBoard[aTN-1][12] += (aTS - hTS);    	        // goalDifference
 	leaderBoard[aTN-1][13] += p;    			// points  
     }	
 	 /**
@@ -858,7 +850,7 @@ public class latestFinalLeague
 	   **/  
   public static void orderLeaderBoard()
   {
-	int [][] temp = new int[leaderBoard.length][leaderBoard[0].length];
+    int [][] temp = new int[leaderBoard.length][leaderBoard[0].length];
     boolean finished = false;
     while (!finished) 
     {
@@ -886,7 +878,7 @@ public class latestFinalLeague
 	   **/	  
   public static void displayLeaderboard()
   {
-	int aTeamNumber;
+	int    aTeamNumber;
 	String aTeamName, formatStringTeamName;
 	String longestTeamName       = teams.get(1).get(0);
         int    longestTeamNameLength = longestTeamName.length();
@@ -898,7 +890,7 @@ public class latestFinalLeague
           longestTeamNameLength = longestTeamName.length();
     }
 	
-	 //String b[][] = new String[teams.get(0).size()][14];
+	 //String b[][] = new String[teams.get(0).size()][14]; --both statements initialising b are equal
 	 String b[][] = new String[leaderBoard.length][14];
 	  
 	 /// For the JTable Output -- loading the team names into the first column of a 2d Array
@@ -918,10 +910,10 @@ public class latestFinalLeague
 		 }	 
 	 }
 	 JFrame f = new JFrame("LeaderBoard"); // (league_Name+" LeaderBoard")
-     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     Container content = f.getContentPane();
-     Object columns[] = {"Teams","GP","HW","HD","HL","GF","GA","AW","AD","AL","GF","GA","GD","TP"};
-     JTable table = new JTable(b, columns);
+         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         Container content = f.getContentPane();
+         Object columns[] = {"Teams","GP","HW","HD","HL","GF","GA","AW","AD","AL","GF","GA","GD","TP"};
+         JTable table = new JTable(b, columns);
 	 JOptionPane.showMessageDialog(null, new JScrollPane(table));
      }
 	  /**
@@ -933,12 +925,12 @@ public class latestFinalLeague
 	public static void editResults(int leagueNumber) throws IOException 
 	{
 		boolean resultExists = false;
-		String [] fixtureDisplay 		  = readFixtures(Integer.toString(leagueNumber));
+		String [] fixtureDisplay = readFixtures(Integer.toString(leagueNumber));
 		String [] fixtureDisplayNoNumbers = new String[fixtureDisplay.length];
-		String fixture					  = currentAdminNo + "_" + leagueNumber+"_fixtures.txt";
-		String resultsFileName            = currentAdminNo + "_" + leagueNumber + "_results.txt";
+		String fixture = currentAdminNo + "_" + leagueNumber+"_fixtures.txt";
+		String resultsFileName = currentAdminNo + "_" + leagueNumber + "_results.txt";
 		String fixtureNumber = "";
-		String pattern 		 = "[0-9]{1,}";
+		String pattern  = "[0-9]{1,}";
 		int fixtureChoice = 0, choice = 0;
 		int homeScore  = 0, awayScore = 0;
 		int indexStr = 0;
@@ -948,8 +940,8 @@ public class latestFinalLeague
 		{
 			for (int i = 0;i< fixtureDisplayNoNumbers.length;i++)
 			{
-				indexStr 				   = 	fixtureDisplay[i].indexOf(".") + 1;
-				fixtureDisplayNoNumbers[i] = 	fixtureDisplay[i].substring(indexStr);
+				indexStr = fixtureDisplay[i].indexOf(".") + 1;
+				fixtureDisplayNoNumbers[i] = fixtureDisplay[i].substring(indexStr);
 			}
 			
 			String temp = dropDown(fixtureDisplayNoNumbers, "Select a fixture");
@@ -978,14 +970,13 @@ public class latestFinalLeague
 				String output = 	fixtureNumber + "," + homeScore + "," + awayScore;
 				writeFile(output,resultsFileName);
 				}
-				
 				editResults(leagueNumber);
 			}	
 			else 
 			{
 				homeScore = 	menuBoxInt("Enter home score:");	
 				awayScore = 	menuBoxInt("Enter away score:");	
-				String output = 	fixtureNumber + "," + homeScore + "," + awayScore;
+				String output = fixtureNumber + "," + homeScore + "," + awayScore;
 				writeFile(output,resultsFileName);
 				editResults(leagueNumber);
 			}		
@@ -1025,7 +1016,6 @@ public class latestFinalLeague
 			if (aFile.exists())
 			{
 				Scanner in = new Scanner(aFile);
-			
 				while (in.hasNext())
 				{
 					fileElements = in.nextLine().split(",");
@@ -1038,14 +1028,13 @@ public class latestFinalLeague
 						fixtureDetails.get(0).add(fileElements[0]);  
 						fixtureDetails.get(1).add(fileElements[1]);
 						fixtureDetails.get(2).add(fileElements[2]); 
-						
+					
 						temp1 = getTeamName(Integer.parseInt(fileElements[1]), currentLeagueParticipants);
 						temp2 = getTeamName(Integer.parseInt(fileElements[2]), currentLeagueParticipants);
 						
 						teamDetails.get(0).add(fileElements[0]);
 						teamDetails.get(1).add(temp1);
 						teamDetails.get(1).add(temp2);
-			
 					}
 				}
 				in.close();				
@@ -1056,7 +1045,6 @@ public class latestFinalLeague
 					homeTeam 	  = 	getTeamName(Integer.parseInt(fixtureDetails.get(1).get(count)), currentLeagueParticipants);
 					awayTeam      =		getTeamName(Integer.parseInt(fixtureDetails.get(2).get(count)), currentLeagueParticipants);
 					
-				
 					fixtureDisplay[count] = (fixtureNumber + "." + homeTeam + " V " + awayTeam);
 				}
 			}
@@ -1072,21 +1060,21 @@ public class latestFinalLeague
 	   **/
 	public static void removeLineFromFile(String fileName, String toDel, int pos) //Params file name, String to delete, position of string
 	{
-		try {
+	try {
 		String[] fileElements;
 		String line = "";
-        File inFile = new File(fileName);
-          if (!inFile.isFile()) {
-            System.out.println("Parameter is not an existing file");
-            return;
+                File inFile = new File(fileName);
+                if (!inFile.isFile()) {
+                System.out.println("Parameter is not an existing file");
+                return;
           }
           File tempFile = new File("temp.txt");
           BufferedReader br = new BufferedReader(new FileReader(inFile));
           PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
           while ((line = br.readLine()) != null) 
-		  {
-			fileElements = line.split(","); 
-            if (!fileElements[pos].equals(toDel)) {
+          {
+	      fileElements = line.split(","); 
+              if (!fileElements[pos].equals(toDel)) {
               pw.println(line);
               pw.flush();
             }
@@ -1118,9 +1106,9 @@ public class latestFinalLeague
      {
 		boolean found = false;
 		try
-		 {
+		{
 			item1 = "";
-	        FileReader reader=new FileReader(textFile);
+	                FileReader reader=new FileReader(textFile);
 			Scanner in=new Scanner(reader);
 			while(in.hasNext())
 			{    
