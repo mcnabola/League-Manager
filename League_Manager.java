@@ -487,6 +487,7 @@ public class latestFinalLeague
 						if (username.equals(fileElements[1]) && password.equals(fileElements[2]))
 						{
 							found = true;
+							currentAdminNo = (Integer.parseInt(fileElements[0]));
 						}
 					}
 					in.close();
