@@ -651,7 +651,7 @@ public class latestFinalLeague
   {
     String filename1 = currentAdminNo+"_"+leagueNumber+"_participants.txt";
     String filename2 = currentAdminNo+"_"+leagueNumber+"_fixtures.txt";
-    String filename3 = currentAdminNo+"_"+leagueNumber+"_Results.txt";
+    String filename3 = currentAdminNo+"_"+leagueNumber+"_results.txt";
     
         String fileElements[];
 	File inputFile1 = new File(filename1);
