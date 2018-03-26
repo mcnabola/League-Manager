@@ -336,22 +336,24 @@ public class latestFinalLeague
 	   *output:the fixture list is output to a specific fixture generation file of the specified league.
 	   *
 	   **/	
-	public static void fixtureGeneration()throws IOException
+		public static void fixtureGeneration()throws IOException
 	{
 	int numberOfTeams, totalNumberOfRounds, numberOfMatchesPerRound;
-        int roundNumber;
+     int roundNumber;
 	boolean added;
-	String currentAdminNoAsString="";
+	String currentAdminNoAsString = "";
 	currentAdminNoAsString=currentAdminNoAsString+currentAdminNo;
-	int matchNumber=0;
+	int matchNumber = 0;
 	int homeTeamNumber, awayTeamNumber, even, odd;
-        boolean additionalTeamIncluded = false;
+    boolean additionalTeamIncluded = false;
 	String [] selectionOfLeagues=readFile(leagueFile,currentAdminNoAsString,0,1);
 	String whichLeaguer=dropDown(selectionOfLeagues,"Select a League");
+	
 	if(whichLeaguer.equals(""))
 	{
 		outputBoxs("you have not selected a league or no leagues exist.");
 	}
+	
 	else
 	{
 	String [] whichLeagues=readFile(leagueFile,whichLeaguer,1,2);
@@ -361,9 +363,13 @@ public class latestFinalLeague
 	File teamFile = new File(teamFileName);
 	File fixtureFile = new File(fixtureGenerationFileName);
 	String [][] fixtures;
-        String [][] revisedFixtures;
-        String []   elementsOfFixture;
-        String fixtureAsText;
+    String [][] revisedFixtures;
+	String []   elementsOfFixture;
+    String fixtureAsText;
+	String line;
+	String[] Elements;
+
+	
 	String info="";
 	if(fixtureFile.exists())
 	{
@@ -410,7 +416,9 @@ public class latestFinalLeague
                    revisedFixtures[i] = fixtures[odd++];
            }
        fixtures = revisedFixtures;
-       int matchCounter=1;
+       int matchCounter	 = 1;
+	   int returnCounter = 1;
+	   String returnLine = "";
        for (roundNumber = 0; roundNumber < fixtures.length; roundNumber++) 
        {
          if (roundNumber % 2 == 1) 
@@ -428,8 +436,23 @@ public class latestFinalLeague
 					info=info+fixtures[roundNumber][matchNumber];
 					writeFile(info,fixtureGenerationFileName);
 					matchCounter++;	   
-		    }	
-	}
+		    }		
+		}
+		
+		for (roundNumber = 0; roundNumber < totalNumberOfRounds; roundNumber++) 
+       {
+		   for (matchNumber = 0; matchNumber < numberOfMatchesPerRound; matchNumber++) 
+		    {
+					info = returnCounter+",";
+					info =info + fixtures[roundNumber][matchNumber];	
+					Elements   = info.split(",");
+					returnLine = (totalNumberOfRounds*numberOfMatchesPerRound)+returnCounter  + "," + Elements[2] + "," + Elements[1];
+					writeFile(returnLine, fixtureGenerationFileName);
+					returnCounter++;
+		    }		
+		}
+		
+		
 	}
 	}
    }
