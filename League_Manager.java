@@ -1147,7 +1147,7 @@ public class latestFinalLeague
 			 // check for leagueToRemove if not in the current line add to arraylist
 			 String v = s.next();
 			 details = v.split(",");
-			 if (details[1].equals(leagueToRemove))
+			 if (details[1].equals(leagueToRemove) && details[0].equals(Integer.toString(currentAdminNo)))
 			 {
 				 //get the league's ID number: details[2] : needed for removing 3_scoring, 3_participants etc
 				 idNumber = Integer.parseInt(details[2]);
