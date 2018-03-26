@@ -148,8 +148,9 @@ public class latestFinalLeague
 	public static void createNewLeague()throws IOException
 	{
 		String leagueName=""; 
-		boolean added;
+		boolean added=false;
 		String leagueFileInput="";
+		String [] previousNames;
 		File leagueFilers = new File(leagueFile);
 		if (!(leagueFilers.exists()))
 		{
@@ -176,7 +177,15 @@ public class latestFinalLeague
 			leagueName=menuBox("Enter your league name:");
 			if (!leagueName.equals(""))
 			{
-			added=addTeamsToLeague(getNumberOfLeaguesMade()+1);
+				previousNames=readFile(leagueFile,leagueName,1,1);
+				if(leagueName.equals(previousNames[0]))
+				{
+					outputBoxs("This League already exists");
+				}
+				else
+				{
+					added=addTeamsToLeague(getNumberOfLeaguesMade()+1);
+				}
 			if(added)
 			{
 			leagueFileInput=currentAdminNo+","+leagueName+","+(getNumberOfLeaguesMade()+1);
@@ -186,7 +195,7 @@ public class latestFinalLeague
 			}
 			else
 			{
-			outputBoxs("You must enter a team name.");
+			outputBoxs("you must enter a team name.");
 			}
 		}
 	}
