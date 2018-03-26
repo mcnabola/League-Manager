@@ -359,7 +359,7 @@ public class latestFinalLeague
 	int whichLeague=Integer.parseInt(whichLeagues[0]);
 	String teamFileName				 = currentAdminNo+"_"+whichLeague+"_participants.txt";
 	String fixtureGenerationFileName = currentAdminNo+"_"+whichLeague+"_fixtures.txt";
-	String resultsFileName = 		 = currentAdminNo + "_" + whichLeague + "_results.txt";
+	String resultsFileName 		 = currentAdminNo + "_" + whichLeague + "_results.txt";
 	File teamFile = new File(teamFileName);
 	File fixtureFile = new File(fixtureGenerationFileName);
 	String [][] fixtures;
