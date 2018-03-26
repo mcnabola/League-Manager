@@ -291,6 +291,8 @@ public class latestFinalLeague
 		else
 		{
 		outputBoxs("Warning this will regenerate fixtures if you have already done so.");
+		// If regenerating fixtures then you need to remove any results the user already entered
+		deleteFile(currentAdminNo+"_"+whichLeague+"_results.txt");
 		String numberOfTeams=menuBox("Enter the amount of teams/players:");
 		boolean isRightFormat=validateNumberInput(numberOfTeams);
 		if(isRightFormat)
