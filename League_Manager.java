@@ -8,7 +8,6 @@ public class latestFinalLeague
 	private static int currentAdminNo;
 	final static String leagueFile="league.txt";
 	final static String adminFile="administrator.txt";
-	private static String item1;
 	public static ArrayList<ArrayList<String>>  teams;
         public static ArrayList<ArrayList<Integer>> fixtures;	
         public static ArrayList<ArrayList<Integer>> results;
@@ -1103,7 +1102,6 @@ public class latestFinalLeague
 		boolean found = false;
 		try
 		{
-			item1 = "";
 	                FileReader reader=new FileReader(textFile);
 			Scanner in=new Scanner(reader);
 			while(in.hasNext())
@@ -1113,7 +1111,6 @@ public class latestFinalLeague
 				if (split[itemPositionNo].equals(searchedItem))
 				{
 					found = true;
-					item1 = split[0]; // Admin#, League#, fixture#.
 					break;
 				}
 			}
