@@ -1099,7 +1099,7 @@ public class latestFinalLeague
      public static void removeLeague(String adminNumber)
 	 {
 		 // load all the leagues that a admin has access to into a array
-         String [] temp=readFile("league.txt",adminNumber,0,1);		 
+                 String [] temp=readFile("league.txt",adminNumber,0,1);		 
 		 String leagueToRemove = dropDown(temp,"Choose a league to remove.");
 		 // load league names into arraylist except the one league you wish to remove. (!leagueToRemove)
 		 ArrayList<String> leagues = new ArrayList<String>();
@@ -1173,12 +1173,10 @@ public class latestFinalLeague
 	 public static void deleteFile(String deleteFile)
 	 {
 	    String filename = deleteFile;  
-        File aFile = new File(filename);
+            File aFile = new File(filename);
             if (!(aFile.exists()))
-                outputBoxs(aFile.getName() + " does not exist.");
+	    {}
             else if(aFile.delete())
-                outputBoxs("Operation to Remove: Successful");
-            else
-                outputBoxs("Operation to delete file failed.");
-     }	
+            {}
+        }	
 }
