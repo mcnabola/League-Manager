@@ -961,7 +961,7 @@ public class latestFinalLeague
 	   * fixtureDetails takes fixture number, home team number and away team number
 	   * teamDetails takes fixture number and home team name and away team name
 	   * Input: takes in league number to determine which files to search
-	   * Output: returns an array containing fixture number + home team V away Team
+	   * Output: returns an array containing home team V away Team
 	   **/
 		public static String[] readFixtures(int leagueNumber) 
 	{
