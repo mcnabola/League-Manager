@@ -963,7 +963,7 @@ public class latestFinalLeague
 	   * Input: takes in league number to determine which files to search
 	   * Output: returns an array containing fixture number + home team V away Team
 	   **/
-	public static String[] readFixtures(int leagueNumber) 
+		public static String[] readFixtures(int leagueNumber) 
 	{
 		fixtureDetails = new ArrayList<ArrayList<String>>();
 		fixtureDetails.add(new ArrayList<String>());
@@ -1008,15 +1008,6 @@ public class latestFinalLeague
 					homeTeam 	  = fixtureDetails.get(1).get(count);
 					awayTeam 	  = fixtureDetails.get(2).get(count);
 					fixtureDisplay[count] = (homeTeam + " V " + awayTeam);
-				}
-				
-				for (int count = 0;count < fixtureDetails.get(0).size();count++)
-				{	
-					homeTeam 	  = 	getTeamName(Integer.parseInt(fixtureDetails.get(1).get(count)), currentLeagueParticipants);
-					awayTeam      =		getTeamName(Integer.parseInt(fixtureDetails.get(2).get(count)), currentLeagueParticipants);
-					
-					fixtureDisplay[count] = (homeTeam + " V " + awayTeam);
-					System.out.println(fixtureDisplay[count]);
 				}
 			}
 		}
