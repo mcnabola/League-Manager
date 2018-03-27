@@ -21,10 +21,9 @@ public class latestFinalLeague
 	public static void main(String [] args)throws IOException
 	{
 	checkIfExists(adminFile);
-	/*String username = menuBox("Enter username");
+	String username = menuBox("Enter username");
 	String password = menuBox("Enter password"); 
-	boolean isLoggedIn = loginMethod(username, password);*/
-        boolean isLoggedIn = LoginMethod();
+	boolean isLoggedIn = loginMethod(username, password);
 	if(isLoggedIn)
 	{
 	String [] initialOptions= { "Create league", "Edit/view League", "Remove League" };
@@ -503,7 +502,7 @@ public class latestFinalLeague
 	   * Output: If inputted details are found in admin file, the method outputs a true boolean
 	   *
 	   **/	
-	/*
+	
 	public static boolean loginMethod(String username, String password)
 	{
 		File adminFilename = new File(adminFile);
@@ -548,50 +547,7 @@ public class latestFinalLeague
 		catch(Exception e)
 		{}
 		return found;
-	} */
-	
-	///// THIS IS A ARRAYLIST STYLED LOG IN METHOD --- 
-	
-    public static boolean LoginMethod()throws IOException
-    {
-        FileReader file1 = new FileReader(adminFile); 
-        Scanner init = new Scanner(file1);
-        ArrayList<String> list = new ArrayList<String>();
-	boolean found = false;
-        while (init.hasNext())  
-        {
-             String f = init.next();
-             list.add(f);
-        }
-	String username = menuBox("Enter username");
-        String password = menuBox("Enter password");
-  
-        for (int loginCount=2 ; loginCount>0 &&  found == false; loginCount--)
-        { 
-        for (int i = 0; i < list.size(); i++) 
-        {         
-		String hh = list.get(i);
-		String[] adminLine = hh.split(",");	
-		if (adminLine[1].equals(username) && adminLine[2].equals(password))
-		{
-                           found = true;
-			   currentAdminNo = Integer.parseInt(adminLine[0]);
-		           outputBoxs("Login Successful:\nWelcome back "+ username);
-		           break;					
-		}
-                if (found == false)
-		{
-	            username = menuBox("Login: Attempt: " + (loginCount) + "\nEnter username");
-                    password = menuBox("Enter password");
-                }	
-        }
-	}
-	init.close();
-        file1.close();
-        return found;
-     }
-	
-	
+	} 
 	
 	 /**
 	   *check if a file exists and if it doesnt then it creates the file
