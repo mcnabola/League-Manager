@@ -335,7 +335,7 @@ public class latestFinalLeague
 				counter++;		
 			}
 			added=true;
-			outputBoxs("please reselect your league");
+			outputBoxs("please reselect your league " + whichLeague);
 			fixtureGeneration();
 		}
 		}
