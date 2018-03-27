@@ -366,9 +366,9 @@ public class latestFinalLeague
 	File teamFile = new File(teamFileName);
 	File fixtureFile = new File(fixtureGenerationFileName);
 	String [][] fixtures;
-    String [][] revisedFixtures;
+        String [][] revisedFixtures;
 	String []   elementsOfFixture;
-    String fixtureAsText;
+        String fixtureAsText;
 	String line;
 	String[] Elements;
 
@@ -443,8 +443,8 @@ public class latestFinalLeague
 		    }		
 		}
 		
-		for (roundNumber = 0; roundNumber < totalNumberOfRounds; roundNumber++) 
-       {
+                for (roundNumber = 0; roundNumber < totalNumberOfRounds; roundNumber++) 
+		{
 		   for (matchNumber = 0; matchNumber < numberOfMatchesPerRound; matchNumber++) 
 		    {
 					info = returnCounter+",";
@@ -455,11 +455,9 @@ public class latestFinalLeague
 					returnCounter++;
 		    }		
 		}
-		
-		
 	}
 	}
-   }
+     }
 	 /**
 	   *gets the number of teams in a league.
 	   *input:the user inputs the name of the file they want to check.
@@ -552,7 +550,7 @@ public class latestFinalLeague
 	
 	///// THIS IS A ARRAYLIST STYLED LOG IN METHOD --- 
 	/*
-public static boolean LoginMethod()throws IOException
+    public static boolean LoginMethod()throws IOException
     {
         FileReader file1 = new FileReader(adminFile); 
         Scanner init = new Scanner(file1);
@@ -576,7 +574,7 @@ public static boolean LoginMethod()throws IOException
 		{
                            found = true;
 			   currentAdminNo = Integer.parseInt(adminLine[0]);
-		           outputBoxs"Login Successful:\nWelcome back "+ username);
+		           outputBoxs("Login Successful:\nWelcome back "+ username);
 		           break;					
 		}
                 if (found == false)
