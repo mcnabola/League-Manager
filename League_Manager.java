@@ -360,13 +360,9 @@ public class latestFinalLeague
         boolean additionalTeamIncluded = false;
 	String [] selectionOfLeagues=readFile(leagueFile,currentAdminNoAsString,0,1);
 	String whichLeaguer=dropDown(selectionOfLeagues,"Select a League");
-	if(whichLeaguer.equals(""))
+	if(!(whichLeaguer!=null))
 	{
-		outputBoxs("you have not selected a league or no leagues exist.");
-	}
-	if(!(whichLeaguers!=null))
-	{
-	        break;
+	        outputBoxs("You have cancelled Match Fixture Generation");
 	}
 	else
 	{
