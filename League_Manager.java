@@ -828,8 +828,8 @@ public static boolean LoginMethod()throws IOException
 	    win = menuBoxInt("Enter Points for a win");
 	    draw = menuBoxInt("Enter Points for a draw");
 	    loss = menuBoxInt("Enter Points for a loss");
-	    String output = win","+draw+","loss;
-	    writefile(output,scoringFile);
+	    String output = win+","+draw+","+loss;
+	    writeFile(output,scoringFile);
 	}
 	 
 	int fixtureNumber, homeTeamScore, awayTeamScore, homeTeamNumber, awayTeamNumber;
