@@ -46,8 +46,10 @@ public class latestFinalLeague
 				break;
 				case 1:String [] selectionOfLeaguers=readFile(leagueFile,(Integer.toString(currentAdminNo)),0,1);
 						String whichLeaguers=dropDown(selectionOfLeaguers,"Select a League");
-						if(whichLeaguers.equals(""))
-							outputBoxs("you have not selected a league or no leagues exist.");									
+						if(!(whichLeaguers!=null))
+						{
+							break;
+						}									
 						else
 						{
 							String [] whichLeagues=readFile(leagueFile,whichLeaguers,1,2);
