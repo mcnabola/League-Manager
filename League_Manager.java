@@ -340,24 +340,22 @@ public class latestFinalLeague
 	   *output:the fixture list is output to a specific fixture generation file of the specified league.
 	   *
 	   **/	
-		public static void fixtureGeneration()throws IOException
+        public static void fixtureGeneration()throws IOException
 	{
 	int numberOfTeams, totalNumberOfRounds, numberOfMatchesPerRound;
-     int roundNumber;
+        int roundNumber;
 	boolean added;
 	String currentAdminNoAsString = "";
 	currentAdminNoAsString=currentAdminNoAsString+currentAdminNo;
 	int matchNumber = 0;
 	int homeTeamNumber, awayTeamNumber, even, odd;
-    boolean additionalTeamIncluded = false;
+        boolean additionalTeamIncluded = false;
 	String [] selectionOfLeagues=readFile(leagueFile,currentAdminNoAsString,0,1);
 	String whichLeaguer=dropDown(selectionOfLeagues,"Select a League");
-	
 	if(whichLeaguer.equals(""))
 	{
 		outputBoxs("you have not selected a league or no leagues exist.");
 	}
-	
 	else
 	{
 	String [] whichLeagues=readFile(leagueFile,whichLeaguer,1,2);
@@ -411,23 +409,23 @@ public class latestFinalLeague
 		   fixtures[roundNumber][matchNumber] = (homeTeamNumber + 1) + "," + (awayTeamNumber + 1);
                }
            } 
-	       revisedFixtures = new String[totalNumberOfRounds][numberOfMatchesPerRound];
+	   revisedFixtures = new String[totalNumberOfRounds][numberOfMatchesPerRound];
            even = 0;
            odd = numberOfTeams / 2;
            for (int i = 0; i < fixtures.length; i++) 
            {
                if (i % 2 == 0) 	
-               revisedFixtures[i] = fixtures[even++];
+                   revisedFixtures[i] = fixtures[even++];
                else 				
                    revisedFixtures[i] = fixtures[odd++];
            }
-       fixtures = revisedFixtures;
-       int matchCounter	 = 1;
+           fixtures = revisedFixtures;
+           int matchCounter = 1;
 	   int returnCounter = 1;
 	   String returnLine = "";
-       for (roundNumber = 0; roundNumber < fixtures.length; roundNumber++) 
-       {
-         if (roundNumber % 2 == 1) 
+           for (roundNumber = 0; roundNumber < fixtures.length; roundNumber++) 
+           {
+           if (roundNumber % 2 == 1) 
 	     {
 	       fixtureAsText = fixtures[roundNumber][0];
 	       elementsOfFixture = fixtureAsText.split(",");
@@ -551,6 +549,49 @@ public class latestFinalLeague
 		{}
 		return found;
 	}
+	
+	///// THIS IS A ARRAYLIST STYLED LOG IN METHOD --- 
+	/*
+public static boolean LoginMethod()throws IOException
+    {
+        FileReader file1 = new FileReader(adminFile); 
+        Scanner init = new Scanner(file1);
+        ArrayList<String> list = new ArrayList<String>();
+	boolean found = false;
+        while (init.hasNext())  
+        {
+             String f = init.next();
+             list.add(f);
+        }
+	String username = menuBox("Enter username");
+        String password = menuBox("Enter password");
+  
+        for (int loginCount=2 ; loginCount>0 &&  found == false; loginCount--)
+        { 
+        for (int i = 0; i < list.size(); i++) 
+        {         
+		String hh = list.get(i);
+		String[] adminLine = hh.split(",");	
+		if (adminLine[1].equals(username) && adminLine[2].equals(password))
+		{
+                           found = true;
+			   currentAdminNo = Integer.parseInt(adminLine[0]);
+		           outputBoxs"Login Successful:\nWelcome back "+ username);
+		           break;					
+		}
+                if (found == false)
+		{
+	            username = menuBox("Login: Attempt: " + (loginCount) + "\nEnter username");
+                    password = menuBox("Enter password");
+                }	
+        }
+	init.close();
+        file1.close();
+        return found;
+     }
+	
+	*/
+	
 	 /**
 	   *check if a file exists and if it doesnt then it creates the file
 	   *input:passed the filename in which it is checked.
