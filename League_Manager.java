@@ -1160,13 +1160,12 @@ public class latestFinalLeague
      public static void removeLeague(String adminNumber)
 	 {
 		 // load all the leagues that a admin has access to into a array
-                 String [] temp=readFile("league.txt",adminNumber,0,1);		 
+                 String [] temp=readFile(leagueFile,adminNumber,0,1);		 
 		 String leagueToRemove = dropDown(temp,"Choose a league to remove.");
 		 // load league names into arraylist except the one league you wish to remove. (!leagueToRemove)
 		 ArrayList<String> leagues = new ArrayList<String>();
 		 int idNumber=0;
 		 try{
-		 //Scanner s = new Scanner(new File("league.txt"));
 		 Scanner s = new Scanner(new File(leagueFile));
 		 String[] details;
 		
