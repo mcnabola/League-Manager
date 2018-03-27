@@ -21,9 +21,10 @@ public class latestFinalLeague
 	public static void main(String [] args)throws IOException
 	{
 	checkIfExists(adminFile);
-	String username = menuBox("Enter username");
+	/*String username = menuBox("Enter username");
 	String password = menuBox("Enter password"); 
-	boolean isLoggedIn = loginMethod(username, password);
+	boolean isLoggedIn = loginMethod(username, password);*/
+        boolean isLoggedIn = LoginMethod();
 	if(isLoggedIn)
 	{
 	String [] initialOptions= { "Create league", "Edit/view League", "Remove League" };
@@ -502,7 +503,8 @@ public class latestFinalLeague
 	   * Output: If inputted details are found in admin file, the method outputs a true boolean
 	   *
 	   **/	
-		public static boolean loginMethod(String username, String password)
+	/*
+	public static boolean loginMethod(String username, String password)
 	{
 		File adminFilename = new File(adminFile);
 		Scanner in;
@@ -546,10 +548,10 @@ public class latestFinalLeague
 		catch(Exception e)
 		{}
 		return found;
-	}
+	} */
 	
 	///// THIS IS A ARRAYLIST STYLED LOG IN METHOD --- 
-	/*
+	
     public static boolean LoginMethod()throws IOException
     {
         FileReader file1 = new FileReader(adminFile); 
@@ -583,6 +585,7 @@ public class latestFinalLeague
                     password = menuBox("Enter password");
                 }	
         }
+	}
 	init.close();
         file1.close();
         return found;
