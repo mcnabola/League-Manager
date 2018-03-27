@@ -676,7 +676,7 @@ public class latestFinalLeague
 			else
 			{
 			createEmptyLeaderBoard();
-			processResults();
+			processResults(leagueNumber);
 			orderLeaderBoard();
 			displayLeaderboard();
 			}
@@ -768,11 +768,28 @@ public class latestFinalLeague
 	   *output-This method only calculates which method to call next based on the score of a game
 	   *
 	   **/  
-  public static void processResults()
+  public static void processResults(int leagueNumber)
   {
-	int win = menuBoxInt("Enter Points for a win");
-	int draw = menuBoxInt("Enter Points for a draw");
-	int loss = menuBoxInt("Enter Points for a loss");
+        int win,draw,loss;
+	String scoringFile = (currentAdminNo+"_"+leagueNumber+"_scoring.txt");
+	
+	boolean scoringFileExists = checkIfItExists(scoringFile);
+	if (scoringFileExists == true)
+	{
+	    String rawScoring = readFile(scoringFile);
+	    String[] scoring = rawScoring.split(",");
+            win = Integer.parseInt(scoring[0]);
+            draw = Integer.parseInt(scoring[1]);
+            loss = Integer.parseInt(scoring[2]);    		
+	}
+	else
+	{
+	    win = menuBoxInt("Enter Points for a win");
+	    draw = menuBoxInt("Enter Points for a draw");
+	    loss = menuBoxInt("Enter Points for a loss");
+	    String output = win","+draw+","loss;
+	    writefile(output,scoringFile);
+	}
 	 
 	int fixtureNumber, homeTeamScore, awayTeamScore, homeTeamNumber, awayTeamNumber;
 	int position;
