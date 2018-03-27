@@ -177,15 +177,21 @@ public class latestFinalLeague
 			leagueName=menuBox("Enter your league name:");
 			if (!leagueName.equals(""))
 			{
-				previousNames=readFile(leagueFile,leagueName,1,0);
+				
+				previousNames=readFile(leagueFile,Integer.toString(currentAdminNo),0,1);
+				if (previousNames.length != 0)
+				{
 				for(int i=0;i<previousNames.length;i++)
 				{
-					if(currentAdminNo==Integer.parseInt(previousNames[i]))
+					if(leagueName.equals(previousNames[i]))
 					{
 						outputBoxs("This League already exists");
 						alreadyExists=true;
 					}
 				}
+				}
+				else
+					alreadyExists=false;
 				if(!alreadyExists)
 				{
 					added=addTeamsToLeague(getNumberOfLeaguesMade()+1);
