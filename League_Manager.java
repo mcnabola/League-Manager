@@ -364,6 +364,10 @@ public class latestFinalLeague
 	{
 		outputBoxs("you have not selected a league or no leagues exist.");
 	}
+	if(!(whichLeaguers!=null))
+	{
+	        break;
+	}
 	else
 	{
 	String [] whichLeagues=readFile(leagueFile,whichLeaguer,1,2);
